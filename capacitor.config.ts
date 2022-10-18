@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'action-companion',
+  appId: 'com.batsu.action',
+  appName: 'ACTION Companion',
   webDir: 'www',
   bundledWebRuntime: false
 };

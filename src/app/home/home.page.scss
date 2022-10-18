@@ -1,27 +1,44 @@
-#container {
-  text-align: center;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+#login-header-text {
+  margin-left: 0.2rem;
+  width: 100%;
 }
-
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+#login-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  padding: 2rem;
 }
-
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
+#logo {
+  width: 40vw;
+  aspect-ratio: 1 / 1;
+  margin-bottom: 2rem;
 }
-
-#container a {
-  text-decoration: none;
+.vertical-center {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+.horizontal-center {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+.login-inputs {
+  width: 100%;
+}
+.login-buttons {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  width: 100%;
+}
+.item {
+  --background: none;
+  width: 100%;
+  margin-bottom: 0.5rem;
 }

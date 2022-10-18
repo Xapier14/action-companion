@@ -1,20 +1,37 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div class="vertical-center">
+    <div id="login-container">
+      <ion-img id="logo" src="assets/icon/action-logo.png"></ion-img>
+      <ion-text id="login-header-text">
+        <h1>Login to Account</h1>
+      </ion-text>
+      <div class="horizontal-center">
+        <div class="login-inputs">
+          <form [formGroup]="loginForm" (ngSubmit)="submitLogin()" novalidate>
+            <ion-item fill="outline" class="item">
+              <ion-label position="stacked">Phone Number</ion-label>
+              <ion-input
+                formControlName="phoneNumber"
+                type="tel"
+                placeholder="Enter phone number"
+              ></ion-input>
+              <ion-note slot="error">Invalid phone number</ion-note>
+            </ion-item>
+            <ion-item fill="outline" class="item">
+              <ion-label position="stacked">Password</ion-label>
+              <ion-input
+                formControlName="password"
+                type="password"
+                placeholder="Enter password"
+                [clearOnEdit]="false"
+              ></ion-input>
+            </ion-item>
+            <div class="login-buttons">
+              <ion-button type="submit">Login</ion-button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 </ion-content>
