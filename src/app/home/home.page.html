@@ -1,37 +1,33 @@
-<ion-content [fullscreen]="true">
-  <div class="vertical-center">
-    <div id="login-container">
-      <ion-img id="logo" src="assets/icon/action-logo.png"></ion-img>
-      <ion-text id="login-header-text">
-        <h1>Login to Account</h1>
-      </ion-text>
-      <div class="horizontal-center">
-        <div class="login-inputs">
-          <form [formGroup]="loginForm" (ngSubmit)="submitLogin()" novalidate>
-            <ion-item fill="outline" class="item">
-              <ion-label position="stacked">Phone Number</ion-label>
-              <ion-input
-                formControlName="phoneNumber"
-                type="tel"
-                placeholder="Enter phone number"
-              ></ion-input>
-              <ion-note slot="error">Invalid phone number</ion-note>
-            </ion-item>
-            <ion-item fill="outline" class="item">
-              <ion-label position="stacked">Password</ion-label>
-              <ion-input
-                formControlName="password"
-                type="password"
-                placeholder="Enter password"
-                [clearOnEdit]="false"
-              ></ion-input>
-            </ion-item>
-            <div class="login-buttons">
-              <ion-button type="submit">Login</ion-button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+<ion-header>
+  <ion-toolbar>
+    <ion-avatar>
+      <img src="assets/icon/action-logo.png" alt="ACTION" />
+    </ion-avatar>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="settings"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button tab="reports">
+        <ion-icon name="compass"></ion-icon>
+        <ion-label>View Reports</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="feed">
+        <ion-icon name="home"></ion-icon>
+        <ion-label>Home</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="create">
+        <ion-icon name="document-text"></ion-icon>
+        <ion-label>New Report</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
 </ion-content>
