@@ -4,7 +4,7 @@ This repository is still very much in a WIP state.
 
 Feature List (To-do):
 
-- [ ] Interface login system with the [action-api backend](https://github.com/Xapier14/action-api).
+- [x] Interface login system with the [action-api backend](https://github.com/Xapier14/action-api).
 - [ ] Reports
   - [ ] Fetching
   - [ ] Filtering & Searching
