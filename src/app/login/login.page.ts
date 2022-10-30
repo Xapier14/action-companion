@@ -37,12 +37,20 @@ export class LoginPage {
   }
 
   ngOnInit() {
-    // check if token exists
-    // resume session if token exists and redirect to home page via checkToken()
-    this.authService.checkTokenFromPreferences(true).then((result) => {
-      if (result.sessionState == "validSession") {
-        this.router.navigate(['/home']);
-      }
+    this.alertController.create({
+      header: 'Welcome Back!',
+      message: 'Your previous session was successfully resumed.',
+      buttons: ['OK']
+    })
+    .then((alert) => {
+      // check if token exists
+      // resume session if token exists and redirect to home page
+      this.authService.checkTokenFromPreferences(true).then((result) => {
+        if (result.sessionState == "validSession") {
+          alert.present();
+          this.router.navigate(['/home']);
+        }
+      });
     });
   }
 
