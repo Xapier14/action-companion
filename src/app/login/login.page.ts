@@ -5,6 +5,8 @@ import { AlertController } from '@ionic/angular';
 import { Preferences } from '@capacitor/preferences';
 import { environment } from 'src/environments/environment';
 
+import { AuthService } from '../services/auth.service';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'login.page.html',
@@ -22,7 +24,8 @@ export class LoginPage {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private authService: AuthService
     ) {
     this.loginForm = formBuilder.group({
       email: ['', Validators.compose([
@@ -36,27 +39,11 @@ export class LoginPage {
   ngOnInit() {
     // check if token exists
     // resume session if token exists and redirect to home page via checkToken()
-    Preferences.get({ key: 'token' }).then((result) => {
-      this.oldToken = result.value;
-      this.checkToken();
-    });
-  }
-
-  async checkToken() {
-    const token = this.oldToken;
-    if (token == null) return;
-    const response = await (await fetch(this.checkEndpoint, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': token
+    this.authService.checkTokenFromPreferences(true).then((result) => {
+      if (result.sessionState == "validSession") {
+        this.router.navigate(['/home']);
       }
-    })).json();
-    if (response.sessionState == "validSession") {
-      this.router.navigate(['/home']);
-    } else {
-      await Preferences.remove({ key: 'token' });
-    }
+    });
   }
 
   async submitLogin() {
@@ -84,31 +71,14 @@ export class LoginPage {
     });
 
     // send login request
-    fetch(this.loginEndpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: new URLSearchParams({
-        'email': email,
-        'password': password,
-        'grant_type': 'password'
-      })
-    })
-    .then(response => response.json())
+    this.authService.tryLogin(email, password)
     .then(async (result) => {
+      this.isButtonDisabled = false;
       if (result.e == 8) {
-        // too many attempts
-        this.isButtonDisabled = false;
         await tooManyAttempts.present();
       } else if (result.e != 0) {
-        // bad login
-        this.isButtonDisabled = false;
         await wrongCredentails.present();
       } else {
-        // good login
-        await Preferences.set({ key: 'token', value: result.token });
-        this.isButtonDisabled = false;
         this.router.navigate(['/home']);
       }
     })
