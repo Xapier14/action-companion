@@ -32,14 +32,13 @@ export class HttpService {
     });
   }
 
-  async getAsync(route: string, data?: object, token?: string) {
-    const endpoint = environment.apiHost + "/" + route;
+  async getAsync(route: string, data?: URLSearchParams, token?: string) {
+    const endpoint = environment.apiHost + "/" + route + `?${data}`;
     return await fetch(endpoint, {
       method: 'GET',
       headers: {
         'Authorization': token
       },
-      body: data ? JSON.stringify(data) : undefined
     });
   }
 }

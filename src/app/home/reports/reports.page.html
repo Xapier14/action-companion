@@ -1,9 +1,18 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>reports</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
+<ion-content role="feed">
+  <ion-list *ngFor="let report of reports">
+    <ion-item role="article">
+      <ion-label>
+        <h2>
+          {{report.buildingName}} -
+          <span class="{{report.color}}">{{report.severity}}</span>
+        </h2>
+        <p>{{report.location}} - {{report.inspector}}</p>
+        <p>{{report.date | date:'medium'}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="circular">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

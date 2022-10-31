@@ -9,7 +9,7 @@ export class FeedPage implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  async ngOnInit() {
   }
 
 }
