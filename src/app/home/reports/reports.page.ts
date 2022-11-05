@@ -8,7 +8,9 @@ import { ListService } from 'src/app/services/list.service';
 })
 export class ReportsPage implements OnInit {
 
-  reports: any[] = [];
+  reports: any[] = undefined;
+  buildings: any[] = ["t1", "t2", "All"];
+  infScroll: any;
 
   constructor(private listService: ListService) { }
 
@@ -56,17 +58,16 @@ export class ReportsPage implements OnInit {
         date: item.inspectedDateTime
       };
     });
-    console.log(this.listService.getCurrentPage());
   }
 
   loadData(event) {
+    this.infScroll = event.target;
     if (!this.listService.hasMoreData()) {
       event.target.disabled = true;
       return;
     }
     setTimeout(async () => {
       const response = await this.listService.getListDataAsync();
-      console.log(response);
       this.reports.push(...response.map((item) => {
         return {
           buildingName: item.buildingName,
@@ -77,8 +78,32 @@ export class ReportsPage implements OnInit {
           date: item.inspectedDateTime
         };
       }));
-      console.log(this.listService.getCurrentPage());
       event.target.complete();
     }, 500);
+  }
+
+  refreshData(event) {
+    setTimeout(async () => {
+      this.listService.refreshList();
+      if (this.infScroll) {
+        this.infScroll.disabled = false;
+      }
+      const response = await this.listService.getListDataAsync();
+      this.reports = response.map((item) => {
+        return {
+          buildingName: item.buildingName,
+          severity: this.numberToSeverity(item.severityStatus),
+          color: this.numberToColor(item.severityStatus),
+          location: this.sentenceCase(item.location),
+          inspector: item.inspector,
+          date: item.inspectedDateTime
+        };
+      });
+      event.target.complete();
+    }, 500);
+  }
+
+  buildingChange(e) {
+    console.log(e);
   }
 }

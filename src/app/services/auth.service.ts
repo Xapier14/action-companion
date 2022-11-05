@@ -32,6 +32,11 @@ export class AuthService {
     return response;
   }
 
+  async hasStoredToken() {
+    const token = await Preferences.get({ key: 'token' });
+    return token.value != null;
+  }
+
   async checkTokenFromPreferences(clearIfInvalid: boolean = false) {
     const token = await Preferences.get({ key: 'token' });
     return await this.checkToken(token.value, clearIfInvalid);

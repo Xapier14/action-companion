@@ -42,13 +42,16 @@ export class LoginPage {
       message: 'Your previous session was successfully resumed.',
       buttons: ['OK']
     })
-    .then((alert) => {
+    .then(async (alert) => {
       // check if token exists
+      this.isButtonDisabled = await this.authService.hasStoredToken();
       // resume session if token exists and redirect to home page
       this.authService.checkTokenFromPreferences(true).then((result) => {
         if (result.sessionState == "validSession") {
           alert.present();
           this.router.navigate(['/home']);
+        } else {
+          this.isButtonDisabled = false;
         }
       });
     });
@@ -87,6 +90,7 @@ export class LoginPage {
       } else if (result.e != 0) {
         await wrongCredentails.present();
       } else {
+        this.loginForm.setValue({email: "", password: ""});
         this.router.navigate(['/home']);
       }
     })

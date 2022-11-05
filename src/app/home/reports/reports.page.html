@@ -1,16 +1,47 @@
 <ion-content role="feed">
-  <ion-list *ngFor="let report of reports">
-    <ion-item role="article">
-      <ion-label>
-        <h2>
-          {{report.buildingName}} -
-          <span class="{{report.color}}">{{report.severity}}</span>
-        </h2>
-        <p>{{report.location}} - {{report.inspector}}</p>
-        <p>{{report.date | date:'medium'}}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+  <ion-refresher slot="fixed" (ionRefresh)="refreshData($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div
+    *ngIf="reports != undefined && buildings != undefined; else loadingReports"
+  >
+    <ion-list>
+      <ion-item>
+        <ion-label>Building Filter:</ion-label>
+        <ion-select
+          interface="action-sheet"
+          [(ngModel)]="building"
+          (ionChange)="buildingChange(e)"
+          value="All"
+          placeholder="All"
+        >
+          <ion-select-option *ngFor="let b of buildings" [value]="b">
+            {{ b }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <ion-list *ngFor="let report of reports">
+      <ion-item role="article">
+        <ion-label>
+          <h2>
+            {{report.buildingName}} -
+            <span class="{{report.color}}">{{report.severity}}</span>
+          </h2>
+          <p>{{report.location}} - {{report.inspector}}</p>
+          <p>{{report.date | date:'medium'}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+  <ng-template #loadingReports>
+    <div class="loading-div">
+      <div>
+        <ion-spinner name="circular"></ion-spinner>
+        Loading...
+      </div>
+    </div>
+  </ng-template>
   <ion-infinite-scroll (ionInfinite)="loadData($event)">
     <ion-infinite-scroll-content loadingSpinner="circular">
     </ion-infinite-scroll-content>

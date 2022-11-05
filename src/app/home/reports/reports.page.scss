@@ -10,3 +10,20 @@
 .severe-color {
     color: #f14141;
 }
+
+.loading-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    div {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        ion-spinner {
+            margin-right: 0.75rem;
+            padding-bottom: 0.1rem;
+        }
+    }
+}
