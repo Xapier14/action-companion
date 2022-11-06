@@ -44,6 +44,8 @@ export class AuthService {
 
   async logout() {
     // add logout logic here
+    const token = await Preferences.get({ key: 'token' });
+    await (this.httpService.postJsonAsync('logout', undefined, token.value));
     await Preferences.remove({ key: 'token' });
   }
 }
