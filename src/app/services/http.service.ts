@@ -41,4 +41,18 @@ export class HttpService {
       },
     });
   }
+
+  async getAsyncParams(route: string, query?: object, token?: string) {
+    const endpoint = environment.apiHost + "/" + route + `?${this.queryString(query)}`;
+    return await fetch(endpoint, {
+      method: 'GET',
+      headers: {
+        'Authorization': token
+      },
+    });
+  }
+
+  private queryString(query: object) {
+    return Object.keys(query).map(key => key + '=' + query[key]).join('&');
+  }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BuildingsService } from 'src/app/services/buildings.service';
 import { ListService } from 'src/app/services/list.service';
 
 @Component({
@@ -9,10 +10,11 @@ import { ListService } from 'src/app/services/list.service';
 export class ReportsPage implements OnInit {
 
   reports: any[] = undefined;
-  buildings: any[] = ["t1", "t2", "All"];
+  buildings: any[] = undefined;
   infScroll: any;
+  building: any;
 
-  constructor(private listService: ListService) { }
+  constructor(private listService: ListService, private buildingsService: BuildingsService) { }
 
   sentenceCase(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -47,6 +49,9 @@ export class ReportsPage implements OnInit {
   }
 
   async ngOnInit() {
+    await this.buildingsService.updateBuildingCache("alangilan");
+    this.buildings = this.buildingsService.getBuildingNameList();
+    this.buildings.push("All");
     const response = await this.listService.getListDataAsync();
     this.reports = response.map((item) => {
       return {
@@ -103,7 +108,7 @@ export class ReportsPage implements OnInit {
     }, 500);
   }
 
-  buildingChange(e) {
-    console.log(e);
+  buildingChange() {
+    console.log("sd");
   }
 }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, Platform } from '@ionic/angular';
 import { Preferences } from '@capacitor/preferences';
 import { environment } from 'src/environments/environment';
 
@@ -18,6 +18,7 @@ export class LoginPage {
 
   private loginForm : FormGroup;
   private oldToken? : string;
+  private isCurrentView : Boolean;
 
   public isButtonDisabled : boolean = false;
 
@@ -25,7 +26,8 @@ export class LoginPage {
     private router: Router,
     private formBuilder: FormBuilder,
     private alertController: AlertController,
-    private authService: AuthService
+    private authService: AuthService,
+    private platform: Platform
     ) {
     this.loginForm = formBuilder.group({
       email: ['', Validators.compose([
@@ -37,6 +39,14 @@ export class LoginPage {
   }
 
   ngOnInit() {
+    // disable back button
+    this.platform.backButton.subscribeWithPriority(9999, (processNextHandler) => {
+      if (this.isCurrentView) {
+
+      } else {
+        processNextHandler();
+      }
+     });
     this.alertController.create({
       header: 'Welcome Back!',
       message: 'Your previous session was successfully resumed.',
@@ -55,6 +65,14 @@ export class LoginPage {
         }
       });
     });
+  }
+  
+  ionViewDidEnter() {
+    this.isCurrentView = true;	
+  }
+
+  ionViewWillLeave() {
+    this.isCurrentView = false;
   }
 
   async submitLogin() {
