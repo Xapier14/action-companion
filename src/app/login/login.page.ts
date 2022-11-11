@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlertController, Platform } from '@ionic/angular';
+import { AlertController, LoadingController, Platform } from '@ionic/angular';
 import { Preferences } from '@capacitor/preferences';
 import { environment } from 'src/environments/environment';
 
@@ -26,6 +26,7 @@ export class LoginPage {
     private router: Router,
     private formBuilder: FormBuilder,
     private alertController: AlertController,
+    private loadingController: LoadingController,
     private authService: AuthService,
     private platform: Platform
     ) {
@@ -99,10 +100,17 @@ export class LoginPage {
       buttons: ['OK']
     });
 
+    // loading modal
+    const loadingModal = await this.loadingController.create({
+      message: 'Logging in...'
+    })
+
     // send login request
+    loadingModal.present();
     this.authService.tryLogin(email, password)
     .then(async (result) => {
       this.isButtonDisabled = false;
+      loadingModal.dismiss();
       if (result.e == 8) {
         await tooManyAttempts.present();
       } else if (result.e != 0) {
@@ -113,6 +121,7 @@ export class LoginPage {
       }
     })
     .catch(async (error) => {
+      loadingModal.dismiss();
       // general error
       this.isButtonDisabled = false;
       await errorLogin.present();

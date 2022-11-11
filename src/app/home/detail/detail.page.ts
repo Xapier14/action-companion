@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-detail',
@@ -10,7 +11,7 @@ export class DetailPage implements OnInit {
 
   private id: string;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private navController: NavController) {
   }
 
   ngOnInit() {
@@ -23,4 +24,7 @@ export class DetailPage implements OnInit {
     // populate fields
   }
 
+  goBack() {
+    this.navController.back();
+  }
 }
