@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BuildingsService } from 'src/app/services/buildings.service';
-import { ListService } from 'src/app/services/list.service';
+import { ReportsService } from 'src/app/services/reports.service';
 
 @Component({
   selector: 'app-reports',
@@ -14,7 +14,7 @@ export class ReportsPage implements OnInit {
   infScroll: any;
   building: any;
 
-  constructor(private listService: ListService, private buildingsService: BuildingsService) { }
+  constructor(private reportsService: ReportsService, private buildingsService: BuildingsService) { }
 
   sentenceCase(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -52,9 +52,10 @@ export class ReportsPage implements OnInit {
     await this.buildingsService.updateBuildingCache("alangilan");
     this.buildings = this.buildingsService.getBuildingNameList();
     this.buildings.push("All");
-    const response = await this.listService.getListDataAsync();
+    const response = await this.reportsService.getListDataAsync();
     this.reports = response.map((item) => {
       return {
+        id: item.id,
         buildingName: item.buildingName,
         severity: this.numberToSeverity(item.severityStatus),
         color: this.numberToColor(item.severityStatus),
@@ -67,14 +68,15 @@ export class ReportsPage implements OnInit {
 
   loadData(event) {
     this.infScroll = event.target;
-    if (!this.listService.hasMoreData()) {
+    if (!this.reportsService.hasMoreData()) {
       event.target.disabled = true;
       return;
     }
     setTimeout(async () => {
-      const response = await this.listService.getListDataAsync();
+      const response = await this.reportsService.getListDataAsync();
       this.reports.push(...response.map((item) => {
         return {
+          id: item.id,
           buildingName: item.buildingName,
           severity: this.numberToSeverity(item.severityStatus),
           color: this.numberToColor(item.severityStatus),
@@ -89,11 +91,11 @@ export class ReportsPage implements OnInit {
 
   refreshData(event) {
     setTimeout(async () => {
-      this.listService.refreshList();
+      this.reportsService.refreshList();
       if (this.infScroll) {
         this.infScroll.disabled = false;
       }
-      const response = await this.listService.getListDataAsync();
+      const response = await this.reportsService.getListDataAsync();
       this.reports = response.map((item) => {
         return {
           buildingName: item.buildingName,

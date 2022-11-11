@@ -5,7 +5,7 @@ import { HttpService } from './http.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ListService {
+export class ReportsService {
   private currentPage: number = 0;
   private isEndOfList: boolean = false;
 
@@ -43,5 +43,15 @@ export class ListService {
   refreshList() {
     this.currentPage = 0;
     this.isEndOfList = false;
+  }
+
+  async getReportAsnc(id: string) {
+    const token = await this.authService.checkTokenFromPreferences();
+    if (!token || token.sessionState != "validSession")
+      return undefined;
+    const response = await (await this.httpService.getAsync('incidents/list', undefined, token.token)).json();
+    if (response.e != 0)
+      return undefined;
+    return response.detail;
   }
 }

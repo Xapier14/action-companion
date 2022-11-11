@@ -22,7 +22,7 @@
       </ion-item>
     </ion-list>
     <ion-list *ngFor="let report of reports">
-      <ion-item role="article">
+      <ion-item href="home/detail?id={{report.id}}" detail="false" class="report-item">
         <ion-label>
           <h2>
             {{report.buildingName}} -

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
+import { DetailPage } from './detail/detail.page';
 
 const routes: Routes = [
   {
@@ -28,9 +29,10 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'settings',
-    loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule)
+    path: 'detail',
+    loadChildren: () => import('./detail/detail.module').then( m => m.DetailPageModule)
   }
+
 ];
 
 @NgModule({
