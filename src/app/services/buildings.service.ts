@@ -3,25 +3,36 @@ import { AuthService } from './auth.service';
 import { HttpService } from './http.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BuildingsService {
   private buildingMap: Map<string, string> = new Map<string, string>();
 
-  constructor(private httpService: HttpService, private authService: AuthService) { }
+  constructor(
+    private httpService: HttpService,
+    private authService: AuthService
+  ) {}
 
   async updateBuildingCache(location: string) {
     const token = await this.authService.getToken();
-    const response = await (await this.httpService.getAsyncParams('buildings/list', {
-      location: location
-    }, token)).json();
+    const response = await (
+      await this.httpService.getAsyncParams(
+        'buildings/list',
+        {
+          location: location,
+        },
+        token
+      )
+    ).json();
     if (response.e == 0) {
       const buildings = response.buildings;
       this.buildingMap.clear();
       for (let i = 0; i < buildings.length; i++) {
         this.buildingMap.set(buildings[i].name, buildings[i].id);
       }
-      console.log(`Building cache updated for location ${location}, ${this.buildingMap.size} buildings found.`);
+      console.log(
+        `Building cache updated for location ${location}, ${this.buildingMap.size} buildings found.`
+      );
     } else {
       console.log(response);
     }

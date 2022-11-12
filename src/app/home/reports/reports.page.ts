@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 import { BuildingsService } from 'src/app/services/buildings.service';
 import { ReportsService } from 'src/app/services/reports.service';
 
@@ -8,13 +10,17 @@ import { ReportsService } from 'src/app/services/reports.service';
   styleUrls: ['./reports.page.scss'],
 })
 export class ReportsPage implements OnInit {
-
   reports: any[] = undefined;
   buildings: any[] = undefined;
   infScroll: any;
   building: any;
 
-  constructor(private reportsService: ReportsService, private buildingsService: BuildingsService) { }
+  constructor(
+    private router: Router,
+    private reportsService: ReportsService,
+    private buildingsService: BuildingsService,
+    private loadingController: LoadingController
+  ) {}
 
   sentenceCase(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -23,35 +29,34 @@ export class ReportsPage implements OnInit {
   numberToSeverity(num) {
     switch (num) {
       case 0:
-        return "None";
+        return 'None';
       case 1:
-        return "Minor";
+        return 'Minor';
       case 2:
-        return "Moderate";
+        return 'Moderate';
       case 3:
-        return "Severe";
+        return 'Severe';
     }
-    return "Unknown State";
+    return 'Unknown State';
   }
 
   numberToColor(num) {
     switch (num) {
       case 0:
-        return "ok-color";
+        return 'ok-color';
       case 1:
-        return "minor-color";
+        return 'minor-color';
       case 2:
-        return "moderate-color";
+        return 'moderate-color';
       case 3:
-        return "severe-color";
+        return 'severe-color';
     }
-    return "unknown-color";
+    return 'unknown-color';
   }
 
   async ngOnInit() {
-    await this.buildingsService.updateBuildingCache("alangilan");
-    this.buildings = this.buildingsService.getBuildingNameList();
-    this.buildings.push("All");
+    await this.buildingsService.updateBuildingCache('alangilan');
+    this.buildings = ['All', ...this.buildingsService.getBuildingNameList()];
     const response = await this.reportsService.getListDataAsync();
     this.reports = response.map((item) => {
       return {
@@ -61,7 +66,7 @@ export class ReportsPage implements OnInit {
         color: this.numberToColor(item.severityStatus),
         location: this.sentenceCase(item.location),
         inspector: item.inspector,
-        date: item.inspectedDateTime
+        date: item.inspectedDateTime,
       };
     });
   }
@@ -74,17 +79,19 @@ export class ReportsPage implements OnInit {
     }
     setTimeout(async () => {
       const response = await this.reportsService.getListDataAsync();
-      this.reports.push(...response.map((item) => {
-        return {
-          id: item.id,
-          buildingName: item.buildingName,
-          severity: this.numberToSeverity(item.severityStatus),
-          color: this.numberToColor(item.severityStatus),
-          location: this.sentenceCase(item.location),
-          inspector: item.inspector,
-          date: item.inspectedDateTime
-        };
-      }));
+      this.reports.push(
+        ...response.map((item) => {
+          return {
+            id: item.id,
+            buildingName: item.buildingName,
+            severity: this.numberToSeverity(item.severityStatus),
+            color: this.numberToColor(item.severityStatus),
+            location: this.sentenceCase(item.location),
+            inspector: item.inspector,
+            date: item.inspectedDateTime,
+          };
+        })
+      );
       event.target.complete();
     }, 500);
   }
@@ -98,19 +105,44 @@ export class ReportsPage implements OnInit {
       const response = await this.reportsService.getListDataAsync();
       this.reports = response.map((item) => {
         return {
+          id: item.id,
           buildingName: item.buildingName,
           severity: this.numberToSeverity(item.severityStatus),
           color: this.numberToColor(item.severityStatus),
           location: this.sentenceCase(item.location),
           inspector: item.inspector,
-          date: item.inspectedDateTime
+          date: item.inspectedDateTime,
         };
       });
       event.target.complete();
     }, 500);
   }
 
-  buildingChange() {
-    console.log("sd");
+  viewDetail(id) {
+    this.router.navigate(['/home/detail'], {
+      queryParams: {
+        id: id,
+      },
+    });
+  }
+
+  async buildingChange() {
+    const loader = await this.loadingController.create({
+      message: 'Updating filters...',
+    });
+    loader.present();
+    if (this.building === 'All' || this.building === undefined) {
+      this.reportsService.removeFilter('buildingId');
+    } else {
+      const buildingId = this.buildingsService.getBuildingId(this.building);
+      this.reportsService.setFilter('buildingId', buildingId);
+    }
+    this.refreshData({
+      target: {
+        complete: () => {
+          loader.dismiss();
+        },
+      },
+    });
   }
 }

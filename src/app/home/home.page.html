@@ -3,8 +3,8 @@
     <ion-avatar slot="start">
       <img src="assets/icon/action-logo.png" alt="ACTION" />
     </ion-avatar>
-    <ion-buttons slot="end" id="open-settings">
-      <ion-button>
+    <ion-buttons slot="end">
+      <ion-button (click)="navigateToSettings()">
         <ion-icon slot="icon-only" name="settings"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -12,29 +12,6 @@
 </ion-header>
 
 <ion-content>
-  <ion-modal #modal trigger="open-settings">
-    <ng-template>
-      <ion-header>
-        <ion-toolbar>
-          <ion-title>Settings</ion-title>
-          <ion-buttons slot="end">
-            <ion-button (click)="modal.dismiss()">Close</ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content>
-        <ion-list>
-          <ion-item
-            button
-            detail="false"
-            (click)="modal.dismiss();onLogout(modal)"
-          >
-            <ion-label>Logout</ion-label>
-          </ion-item>
-        </ion-list>
-      </ion-content>
-    </ng-template>
-  </ion-modal>
   <ion-tabs>
     <ion-tab-bar slot="bottom">
       <ion-tab-button tab="reports">

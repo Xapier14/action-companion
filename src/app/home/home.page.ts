@@ -11,14 +11,11 @@ import { AuthService } from '../services/auth.service';
 })
 export class HomePage implements OnInit {
   private isCurrentView: boolean;
-  private displayWarning: boolean;
 
   constructor(
     private router: Router,
     private authService: AuthService,
-    private platform: Platform,
-    private loadingController: LoadingController,
-    private alertController: AlertController
+    private platform: Platform
   ) {}
 
   ngOnInit() {
@@ -48,19 +45,15 @@ export class HomePage implements OnInit {
 
   ionViewDidEnter() {
     this.isCurrentView = true;
+    console.log('home page did enter');
   }
 
   ionViewWillLeave() {
     this.isCurrentView = false;
+    console.log('home page did leave');
   }
 
-  async onLogout(modal) {
-    const loadingModal = await this.loadingController.create({
-      message: "Logging out..."
-    })
-    loadingModal.present();
-    await this.authService.logout();
-    this.router.navigate(['/login']);
-    loadingModal.dismiss();
+  navigateToSettings() {
+    this.router.navigate(['/home/settings']);
   }
 }

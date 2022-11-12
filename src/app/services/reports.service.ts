@@ -3,38 +3,57 @@ import { AuthService } from './auth.service';
 import { HttpService } from './http.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ReportsService {
   private currentPage: number = 0;
   private isEndOfList: boolean = false;
+  private filter = {};
 
-  constructor(private authService: AuthService, private httpService: HttpService) { }
+  constructor(
+    private authService: AuthService,
+    private httpService: HttpService
+  ) {}
 
-  hasMoreData() : boolean {
+  hasMoreData(): boolean {
     return !this.isEndOfList;
   }
 
-  getCurrentPage() : number {
+  getCurrentPage(): number {
     return this.currentPage;
   }
 
+  setFilter(key: string, value: string) {
+    this.filter[key] = value;
+  }
+
+  removeFilter(key: string) {
+    delete this.filter[key];
+  }
+
+  clearFilter() {
+    this.filter = {};
+  }
+
   async getListDataAsync() {
-    if (this.isEndOfList)
-      return [];
+    if (this.isEndOfList) return [];
 
     const token = await this.authService.checkTokenFromPreferences();
-    if (!token || token.sessionState != "validSession")
-      return [];
-    const params = new URLSearchParams({
+    if (!token || token.sessionState != 'validSession') return [];
+    // add filter to params
+    let params = new URLSearchParams({
       pageOffset: this.currentPage.toString(),
-      limit: "15"
+      limit: '15',
     });
-    const response = await (await this.httpService.getAsync('incidents/list', params, token.token)).json();
+    for (let key in this.filter) {
+      params.append(key, this.filter[key]);
+    }
+    const response = await (
+      await this.httpService.getAsync('incidents/list', params, token.token)
+    ).json();
     if (response.e == 0) {
       this.currentPage++;
-      if (this.currentPage > response.maxPageOffset)
-        this.isEndOfList = true;
+      if (this.currentPage > response.maxPageOffset) this.isEndOfList = true;
       return response.reports;
     }
     return [];
@@ -45,13 +64,13 @@ export class ReportsService {
     this.isEndOfList = false;
   }
 
-  async getReportAsnc(id: string) {
+  async getReportAsync(id: string) {
     const token = await this.authService.checkTokenFromPreferences();
-    if (!token || token.sessionState != "validSession")
-      return undefined;
-    const response = await (await this.httpService.getAsync('incidents/list', undefined, token.token)).json();
-    if (response.e != 0)
-      return undefined;
-    return response.detail;
+    if (!token || token.sessionState != 'validSession') return undefined;
+    const response = await (
+      await this.httpService.getAsync(`incidents/${id}`, undefined, token.token)
+    ).json();
+    if (response.e != 0) return undefined;
+    return response.incident;
   }
 }
