@@ -56,18 +56,17 @@ export class LoginPage {
       buttons: ['OK'],
     });
     // check if token exists
-    this.isButtonDisabled = await this.authService.hasStoredToken();
-    if (this.isButtonDisabled) {
+    if (await this.authService.hasStoredToken()) {
+      this.isButtonDisabled = true;
       loader.present();
     }
     // resume session if token exists and redirect to home page
     const result = await this.authService.checkTokenFromPreferences(true);
     loader.dismiss();
+    this.isButtonDisabled = false;
     if (result.sessionState == 'validSession') {
       alert.present();
       this.router.navigate(['/home']);
-    } else {
-      this.isButtonDisabled = false;
     }
   }
 

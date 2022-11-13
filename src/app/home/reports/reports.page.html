@@ -1,10 +1,10 @@
 <ion-content role="feed">
-  <ion-refresher slot="fixed" (ionRefresh)="refreshData($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
   <div
     *ngIf="reports != undefined && buildings != undefined; else loadingReports"
   >
+    <ion-refresher slot="fixed" (ionRefresh)="refreshData($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
     <ion-list>
       <ion-item>
         <ion-label>Building Filter:</ion-label>
@@ -15,7 +15,7 @@
           value="All"
           placeholder="All"
         >
-          <ion-select-option *ngFor="let b of buildings" [value]="b">
+          <ion-select-option *ngFor="let b of buildings" value="{{b}}">
             {{ b }}
           </ion-select-option>
         </ion-select>
@@ -38,6 +38,10 @@
         </ion-label>
       </ion-item>
     </ion-list>
+    <ion-infinite-scroll (ionInfinite)="loadData($event)">
+      <ion-infinite-scroll-content loadingSpinner="circular">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
   </div>
   <ng-template #loadingReports>
     <div class="loading-div">
@@ -47,8 +51,4 @@
       </div>
     </div>
   </ng-template>
-  <ion-infinite-scroll (ionInfinite)="loadData($event)">
-    <ion-infinite-scroll-content loadingSpinner="circular">
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
 </ion-content>

@@ -1,4 +1,290 @@
-<ion-content> </ion-content>
+<ion-content>
+  <div class="document-title">Rapid Damage Assessment Form</div>
+  <div *ngIf="reportData else loading" class="report-parent">
+    <ion-refresher slot="fixed" (ionRefresh)="refreshData($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <!-- INSPECTION -->
+    <div class="section-container">
+      <div class="section-title">Inspection</div>
+      <div class="section-item">
+        <span class="section-label">Inspector:</span>
+        <span class="section-data">{{reportData.inspector}}</span>
+      </div>
+      <div class="section-item">
+        <span class="section-label">Agency/Campus:</span>
+        <span class="section-data">{{reportData.location}}</span>
+      </div>
+      <div class="section-item">
+        <span class="section-label">Building Inspected:</span>
+        <span class="section-data">{{reportData.building}}</span>
+      </div>
+      <div class="section-item-v">
+        <span class="section-label">Areas Inspected:</span>
+        <ion-radio-group
+          class="section-data radio-group"
+          value="{{reportData.areasInspected}}"
+        >
+          <span
+            ><ion-radio disabled value="exterior"></ion-radio> Exterior
+            Only</span
+          >
+          <span
+            ><ion-radio disabled value="exterior&interior"></ion-radio> Exterior
+            & Interior</span
+          >
+        </ion-radio-group>
+      </div>
+    </div>
+    <!-- EVALUATION -->
+    <div class="section-container">
+      <div class="section-title">Evaluation</div>
+      <div class="section-item-v">
+        <span class="section-label">Observed Conditions:</span>
+        <!-- Collapsed Structure -->
+        <div class="section-data-v">
+          <div class="section-data-item">
+            <span>Collapsed Structure</span>
+            <ion-radio-group
+              class="radio-group"
+              value="{{reportData.collapsedStructure}}"
+            >
+              <ion-radio disabled value="0"></ion-radio>
+              <ion-radio disabled value="1"></ion-radio>
+              <ion-radio disabled value="2"></ion-radio>
+            </ion-radio-group>
+          </div>
+        </div>
+        <!-- Building/Story Leaning or Out of Plumb -->
+        <div class="section-data-v">
+          <div class="section-data-item">
+            <span>Building/Story Leaning or Out of Plumb</span>
+            <ion-radio-group
+              class="radio-group"
+              value="{{reportData.leaningOrOutOfPlumb}}"
+            >
+              <ion-radio disabled value="0"></ion-radio>
+              <ion-radio disabled value="1"></ion-radio>
+              <ion-radio disabled value="2"></ion-radio>
+            </ion-radio-group>
+          </div>
+        </div>
+        <!-- Damage to Primary Structural Members, Racking of Walls -->
+        <div class="section-data-v">
+          <div class="section-data-item">
+            <span>Damage to Primary Structural Members, Racking of Walls</span>
+            <ion-radio-group
+              class="radio-group"
+              value="{{reportData.damageToPrimaryStructure}}"
+            >
+              <ion-radio disabled value="0"></ion-radio>
+              <ion-radio disabled value="1"></ion-radio>
+              <ion-radio disabled value="2"></ion-radio>
+            </ion-radio-group>
+          </div>
+        </div>
+        <!-- Falling Hazards -->
+        <div class="section-data-v">
+          <div class="section-data-item">
+            <span>Falling Hazards</span>
+            <ion-radio-group
+              class="radio-group"
+              value="{{reportData.fallingHazards}}"
+            >
+              <ion-radio disabled value="0"></ion-radio>
+              <ion-radio disabled value="1"></ion-radio>
+              <ion-radio disabled value="2"></ion-radio>
+            </ion-radio-group>
+          </div>
+        </div>
+        <!-- Ground Movement or Slope -->
+        <div class="section-data-v">
+          <div class="section-data-item">
+            <span>Ground Movement or Slope</span>
+            <ion-radio-group
+              class="radio-group"
+              value="{{reportData.groundMovementOrSlope}}"
+            >
+              <ion-radio disabled value="0"></ion-radio>
+              <ion-radio disabled value="1"></ion-radio>
+              <ion-radio disabled value="2"></ion-radio>
+            </ion-radio-group>
+          </div>
+        </div>
+        <!-- Damaged/Submerged Fixtures or Services -->
+        <div class="section-data-v">
+          <div class="section-data-item">
+            <span>Damaged/Submerged Fixtures or Services</span>
+            <ion-radio-group
+              class="radio-group"
+              value="{{reportData.damagedSubmergedFixtures}}"
+            >
+              <ion-radio disabled value="0"></ion-radio>
+              <ion-radio disabled value="1"></ion-radio>
+              <ion-radio disabled value="2"></ion-radio>
+            </ion-radio-group>
+          </div>
+        </div>
+        <!-- Proximity Risks -->
+        <div class="section-data-v">
+          <div class="section-data-item">
+            <span>Proximity Risks</span>
+            <ion-radio-group
+              class="radio-group"
+              value="{{reportData.proximityRisk}}"
+            >
+              <ion-radio disabled value="0"></ion-radio>
+              <ion-radio disabled value="1"></ion-radio>
+              <ion-radio disabled value="2"></ion-radio>
+            </ion-radio-group>
+          </div>
+          <div class="section-data-item-v">
+            <span>Proximity Risk Details: </span>
+            <span style="width: 95%">{{reportData.proximityRiskTitle}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- POSTINGS -->
+    <div class="section-container">
+      <div class="section-title">Postings</div>
+    </div>
+  </div>
+  <ng-template #loading>
+    <div class="section-container">
+      <ion-skeleton-text
+        animated
+        style="width: 60%; height: 1.25rem"
+      ></ion-skeleton-text>
+      <ion-skeleton-text
+        animated
+        style="width: 80%; height: 1rem"
+      ></ion-skeleton-text>
+      <ion-skeleton-text
+        animated
+        style="width: 70%; height: 1rem"
+      ></ion-skeleton-text>
+    </div>
+    <div class="section-container">
+      <ion-skeleton-text
+        animated
+        style="width: 80%; height: 1rem"
+      ></ion-skeleton-text>
+      <ion-skeleton-text
+        animated
+        style="width: 80%; height: 1rem"
+      ></ion-skeleton-text>
+      <ion-skeleton-text
+        animated
+        style="width: 80%; height: 1rem"
+      ></ion-skeleton-text>
+      <ion-skeleton-text
+        animated
+        style="width: 80%; height: 1rem"
+      ></ion-skeleton-text>
+      <ion-skeleton-text
+        animated
+        style="width: 80%; height: 1rem"
+      ></ion-skeleton-text>
+      <ion-skeleton-text
+        animated
+        style="width: 80%; height: 1rem"
+      ></ion-skeleton-text>
+    </div>
+    <div class="section-container">
+      <ion-skeleton-text
+        animated
+        style="width: 70%; height: 1rem"
+      ></ion-skeleton-text>
+      <ion-skeleton-text
+        animated
+        style="width: 70%; height: 1rem"
+      ></ion-skeleton-text>
+      <ion-skeleton-text
+        animated
+        style="width: 70%; height: 1rem"
+      ></ion-skeleton-text>
+      <ion-skeleton-text
+        animated
+        style="width: 70%; height: 1rem"
+      ></ion-skeleton-text>
+    </div>
+    <div class="section-container">
+      <ion-skeleton-text
+        animated
+        style="width: 70%; height: 1rem"
+      ></ion-skeleton-text>
+      <ion-skeleton-text
+        animated
+        style="width: 70%; height: 1rem"
+      ></ion-skeleton-text>
+      <ion-skeleton-text
+        animated
+        style="width: 70%; height: 1rem"
+      ></ion-skeleton-text>
+      <ion-skeleton-text
+        animated
+        style="width: 70%; height: 1rem"
+      ></ion-skeleton-text>
+      <ion-skeleton-text
+        animated
+        style="width: 70%; height: 1rem"
+      ></ion-skeleton-text>
+      <ion-skeleton-text
+        animated
+        style="width: 70%; height: 1rem"
+      ></ion-skeleton-text>
+    </div>
+    <div class="section-container">
+      <ion-skeleton-text
+        animated
+        style="width: 90%; height: 1rem"
+      ></ion-skeleton-text>
+      <ion-skeleton-text
+        animated
+        style="width: 90%; height: 1rem"
+      ></ion-skeleton-text>
+      <ion-skeleton-text
+        animated
+        style="width: 90%; height: 1rem"
+      ></ion-skeleton-text>
+      <ion-skeleton-text
+        animated
+        style="width: 90%; height: 1rem"
+      ></ion-skeleton-text>
+      <ion-skeleton-text
+        animated
+        style="width: 90%; height: 1rem"
+      ></ion-skeleton-text>
+    </div>
+    <div class="section-container">
+      <ion-skeleton-text
+        animated
+        style="width: 70%; height: 1rem"
+      ></ion-skeleton-text>
+      <ion-skeleton-text
+        animated
+        style="width: 70%; height: 1rem"
+      ></ion-skeleton-text>
+      <ion-skeleton-text
+        animated
+        style="width: 70%; height: 1rem"
+      ></ion-skeleton-text>
+      <ion-skeleton-text
+        animated
+        style="width: 70%; height: 1rem"
+      ></ion-skeleton-text>
+      <ion-skeleton-text
+        animated
+        style="width: 70%; height: 1rem"
+      ></ion-skeleton-text>
+      <ion-skeleton-text
+        animated
+        style="width: 70%; height: 1rem"
+      ></ion-skeleton-text>
+    </div>
+  </ng-template>
+</ion-content>
 
 <ion-footer>
   <ion-toolbar>

@@ -45,4 +45,12 @@ export class BuildingsService {
   getBuildingId(name: string): string {
     return this.buildingMap.get(name);
   }
+
+  getBuildingName(id: string): string {
+    if (this.buildingMap.size == 0) return 'Unknown';
+    const name = Array.from(this.buildingMap.keys()).find(
+      (key) => this.buildingMap.get(key) === id
+    );
+    return name;
+  }
 }
