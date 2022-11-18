@@ -7,8 +7,8 @@ Feature List (To-do):
 - [x] Interface login system with the [action-api backend](https://github.com/Xapier14/action-api).
 - [x] Reports
   - [x] Fetching
-  - [ ] Detail View
-  - [ ] Filtering & Searching
+  - [x] Detail View
+  - [x] Filtering
   - [ ] Creation
 - [ ] Attachments
   - [ ] Upload
