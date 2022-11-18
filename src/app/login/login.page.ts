@@ -16,7 +16,7 @@ export class LoginPage {
   private loginEndpoint = environment.apiHost + '/login';
   private checkEndpoint = environment.apiHost + '/check';
 
-  private loginForm: FormGroup;
+  loginForm: FormGroup;
   private oldToken?: string;
   private isCurrentView: Boolean;
 

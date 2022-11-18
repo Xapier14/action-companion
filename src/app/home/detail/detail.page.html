@@ -1,4 +1,4 @@
-<ion-content>
+<ion-content mode="md">
   <div class="document-title">Rapid Damage Assessment Form</div>
   <div *ngIf="reportData else loading" class="report-parent">
     <ion-refresher slot="fixed" (ionRefresh)="refreshData($event)">
@@ -39,8 +39,19 @@
     <!-- EVALUATION -->
     <div class="section-container">
       <div class="section-title">Evaluation</div>
+      <div class="section-subtitle">
+        Investigate the building and area around it for the conditions below and
+        check the appropriate column.
+      </div>
       <div class="section-item-v">
-        <span class="section-label">Observed Conditions:</span>
+        <div class="section-label-container">
+          <span class="section-label">Observed Conditions:</span>
+          <div class="section-rg-label">
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+          </div>
+        </div>
         <!-- Collapsed Structure -->
         <div class="section-data-v">
           <div class="section-data-item">
@@ -143,11 +154,190 @@
             <span style="width: 95%">{{reportData.proximityRiskTitle}}</span>
           </div>
         </div>
+        <!-- Section info helper -->
+        <span class="section-info"
+          >1 = Minor/None; 2 = Major; 3 = Critical</span
+        >
+        <!-- Estimated Damage -->
+        <div class="section-item">
+          <span class="section-label">Estimated Damage:</span>
+          <span class="section-data">{{reportData.buildingDamageString}}</span>
+        </div>
+        <!-- Comments -->
+        <div class="section-item-v">
+          <span class="section-label">Comments:</span>
+          <span class="section-data block-style"
+            >{{reportData.evaluationComment}}</span
+          >
+        </div>
       </div>
     </div>
     <!-- POSTINGS -->
     <div class="section-container">
       <div class="section-title">Postings</div>
+      <div class="section-subtitle">
+        Severe conditions endangering the overall building are grounds for an
+        Unsafe posting. Localised service and overall Moderate conditions allow
+        a Restricted Use posting. Where required, ensure that RESTRICTED USE and
+        UNSAFE placards are posted at all entrances.
+      </div>
+      <!-- Placards -->
+      <div class="section-item-v">
+        <span class="section-label">Placards:</span>
+        <div class="section-data checkbox-group">
+          <div>
+            <ion-checkbox
+              disabled
+              checked="{{reportData.inspectedPlacard}}"
+            ></ion-checkbox>
+            <span>Inspected</span>
+          </div>
+          <div>
+            <ion-checkbox
+              disabled
+              checked="{{reportData.restrictedPlacard}}"
+            ></ion-checkbox>
+            <span>Restricted Use</span>
+          </div>
+          <div>
+            <ion-checkbox
+              disabled
+              checked="{{reportData.unsafePlacard}}"
+            ></ion-checkbox>
+            <span>Unsafe</span>
+          </div>
+        </div>
+      </div>
+      <div class="section-item-v">
+        <span class="section-label section-item">Observed Conditions:</span>
+        <div class="section-item-v">
+          <div class="section-label">
+            <ion-checkbox
+              disabled
+              checked="{{reportData.doNotEnter != ''}}"
+            ></ion-checkbox>
+            <span>Do not use or enter the following areas:</span>
+          </div>
+          <span class="section-data block-style"
+            >{{reportData.doNotEnter}}</span
+          >
+        </div>
+        <div class="section-item-v">
+          <div class="section-label">
+            <ion-checkbox
+              disabled
+              checked="{{reportData.briefEntryAllowed != ''}}"
+            ></ion-checkbox>
+            <span>Brief entry allowed for access to contents:</span>
+          </div>
+          <span class="section-data block-style"
+            >{{reportData.briefEntryAllowed}}</span
+          >
+        </div>
+        <div class="section-item-v">
+          <div class="section-label">
+            <ion-checkbox
+              disabled
+              checked="{{reportData.doNotUse != ''}}"
+            ></ion-checkbox>
+            <span
+              >Do not use flooded/damaged appliances, devices or services
+              (electric, gas) until rectified by a licensed contractor</span
+            >
+          </div>
+        </div>
+        <div class="section-item-v">
+          <div class="section-label">
+            <span>Other restrictions:</span>
+          </div>
+          <span class="section-data block-style"
+            >{{reportData.otherRestrictions}}</span
+          >
+        </div>
+      </div>
+    </div>
+    <!-- FURTHER ACTIONS -->
+    <div class="section-container">
+      <div class="section-title">Further Actions</div>
+      <div class="section-subtitle">
+        Check the boxes below ONLY if further actions are needed.
+      </div>
+      <div class="section-item-v">
+        <div class="section-label">
+          <ion-checkbox
+            disabled
+            checked="{{reportData.barricadeComment != ''}}"
+          ></ion-checkbox>
+          <span>Barricades needed in the following areas:</span>
+        </div>
+        <span class="section-data block-style"
+          >{{reportData.barricadeComment}}</span
+        >
+      </div>
+      <div class="section-item-v">
+        <div class="section-label">
+          <ion-checkbox
+            disabled
+            checked="{{reportData.detailedEvaluationAreas.length > 0}}"
+          ></ion-checkbox>
+          <span>Detailed evaluation recommended:</span>
+        </div>
+        <div class="section-data checkbox-group block-style">
+          <div>
+            <ion-checkbox
+              disabled
+              checked="{{reportData.detailedEvaluationAreas.includes('1')}}"
+            ></ion-checkbox>
+            <span>Structural</span>
+          </div>
+          <div>
+            <ion-checkbox
+              disabled
+              checked="{{reportData.detailedEvaluationAreas.includes('2')}}"
+            ></ion-checkbox>
+            <span>Geotechnical</span>
+          </div>
+          <div>
+            <ion-checkbox
+              disabled
+              checked="{{reportData.detailedEvaluationAreas.includes('3')}}"
+            ></ion-checkbox>
+            <span>Other</span>
+          </div>
+        </div>
+      </div>
+      <div class="section-item-v">
+        <div class="section-label">
+          <ion-checkbox
+            disabled
+            checked="{{reportData.otherRecommendations != ''}}"
+          ></ion-checkbox>
+          <span>Other recommendations:</span>
+        </div>
+        <span class="section-data block-style"
+          >{{reportData.otherRecommendations}}</span
+        >
+      </div>
+      <div class="section-item-v">
+        <div class="section-label">
+          <span>Comments:</span>
+        </div>
+        <span class="section-data block-style"
+          >{{reportData.furtherComments}}</span
+        >
+      </div>
+    </div>
+    <!-- ATTACHMENTS -->
+    <div class="section-container">
+      <div class="section-title">Attachments</div>
+      <div class="section-subtitle">
+        Viewing attachments may incur mobile data charges.
+      </div>
+      <div class="section-item-v">
+        <div *ngIf="reportData.attachments.length == 0" class="block-style">
+          No attachments found.
+        </div>
+      </div>
     </div>
   </div>
   <ng-template #loading>

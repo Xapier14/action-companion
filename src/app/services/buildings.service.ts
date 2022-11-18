@@ -14,7 +14,7 @@ export class BuildingsService {
   ) {}
 
   async updateBuildingCache(location: string) {
-    const token = await this.authService.getToken();
+    const token = await this.authService.getTokenAsync();
     const response = await (
       await this.httpService.getAsyncParams(
         'buildings/list',

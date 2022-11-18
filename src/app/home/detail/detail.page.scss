@@ -2,11 +2,11 @@
     font-size: 1rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
-    color: white;
+    color: #FFF;
     border-radius: 0.5rem;
     padding: 0.5rem;
     margin: 0.75rem 0.5rem;
-    background-color: #130000;
+    background-color: #000;
     text-align: center;
 }
 .section-container {
@@ -16,7 +16,7 @@
     border-style: solid;
     border-width: 1px;
     border-radius: 0.5rem;
-    border-color: #b6b6b69a;
+    border-color: #303030c5;
     margin-bottom: 1rem;
     ion-skeleton-text {
         margin-bottom: 1rem;
@@ -28,6 +28,21 @@
     text-align: center;
     margin-bottom: 1rem;
     text-transform: uppercase;
+}
+.section-subtitle {
+    font-size: 0.75rem;
+    text-align: justify;
+    margin-bottom: 1rem;
+    color: rgb(201, 0, 0);
+}
+.section-info {
+    font-size: 0.75rem;
+    text-align: justify;
+    margin-top: 0.5rem;
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+    color:rgb(90, 90, 90);
+    font-style: italic;
 }
 .section-item {
     display: flex;
@@ -41,12 +56,37 @@
 }
 .section-label {
     margin-right: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    ion-checkbox {
+        margin-right: 0.5rem;
+    }
+    span {
+        width: 90%;
+        text-align: justify;
+    }
+}
+.section-label-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-right: 0.75rem;
+    .section-rg-label {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        * {
+            margin-left: 1.75rem;
+            font-weight: 600;
+        }
+    }
 }
 .section-data {
     flex: 1;
     font-weight: 400;
     text-transform: capitalize;
-    border-bottom: 1px solid #b6b6b69a;
+    border-bottom: 1px solid #4444447e;
 
     display: flex;
     flex-direction: row;
@@ -82,6 +122,26 @@
     border-width: 0px;
     justify-content: space-around;
 }
+.checkbox-group {
+    margin-top: 0.5rem;
+    border-width: 0px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+
+    div {
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: row;
+        align-items: center;
+        justify-items: auto;
+        justify-content: center;
+        span {
+            margin-left: 0.5rem;
+        }
+        margin-right: auto;
+        margin-bottom: 0.25rem;
+    }
+}
 .section-data-item {
     width: 100%;
     display: flex;
@@ -92,7 +152,7 @@
     font-style: italic;
     border-radius: 0.5rem;
     padding: 0.5rem;
-    background-color: #dfdfdf48;
+    background-color: #7e7e7e44;
     span {
         margin-left: 0.5rem;
         width: 50%;
@@ -114,7 +174,7 @@
     font-style: italic;
     border-radius: 0.5rem;
     padding: 0.5rem;
-    background-color: #dfdfdf48;
+    background-color: #7e7e7e44;
     span {
         margin-left: 0.5rem;
         margin-bottom: 0.5rem;
@@ -130,4 +190,49 @@
         border-width: 0;
         color: #505050;
     }
+}
+
+.warn-style {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: #fff78393;
+    border-bottom: 0;
+    margin-top: 0.5rem;
+    min-height: 2rem;
+    text-transform: none;
+}
+
+.block-style {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: #7e7e7e44;
+    border-bottom: 0;
+    margin-top: 0.5rem;
+    min-height: 2rem;
+    text-transform: none;
+}
+
+@media (prefers-color-scheme: dark) {
+    .document-title {
+        background-color: rgb(224, 224, 224);
+        color: #000;
+    }
+    .section-data-item, .section-data-item-v {
+        background-color: #46464644;
+    }
+    .section-subtitle {
+        color: rgb(255, 130, 130);
+    }
+}
+
+ion-checkbox {
+    --size: 24px;
+    --border-color: rgb(252, 42, 42);
+    --border-color-checked: rgb(252, 42, 42);
+    --checkmark-color: rgb(252, 42, 42);
+    --background-checked: none;
+}
+
+ion-radio {
+    --color-checked: rgb(252, 42, 42);
 }

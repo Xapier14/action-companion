@@ -53,15 +53,33 @@ export class DetailPage implements OnInit {
       return;
     }
     report.building = this.buildingsService.getBuildingName(report.buildingId);
+    report.buildingDamageString = (() => {
+      switch (report.estimatedBuildingDamage) {
+        case 0:
+          return 'None';
+        case 1:
+          return '1 - 10 %';
+        case 2:
+          return '11 - 30 %';
+        case 3:
+          return '31 - 60 %';
+        case 4:
+          return '61 - 99 %';
+        case 5:
+          return '100 %';
+        default:
+          return 'Unknown';
+      }
+    })();
     if (report.building === 'Unknown') {
       await this.buildingsService.updateBuildingCache(report.location);
       report.building = this.buildingsService.getBuildingName(
         report.buildingId
       );
     }
-    report.inspector = await this.identityCacheService.getNameFromIdAsync(
-      report.inspectorId
-    );
+    report.inspector = (
+      await this.identityCacheService.getNameFromIdAsync(report.inspectorId)
+    ).join(' ');
     this.reportData = report;
     console.log(report);
   }
