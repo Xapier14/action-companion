@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiHost: 'http://localhost:3000/api/v1',
-  // apiHost: "https://action-api.azurewebsites.net/api/v1",
+  // apiHost: 'http://localhost:3000/api/v1',
+  apiHost: "https://action-api.azurewebsites.net/api/v1",
 };
 
 /*
