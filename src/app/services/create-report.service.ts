@@ -24,4 +24,6 @@ export class CreateReportService {
   private estimatedBuildingDamage: number;
 
   constructor() {}
+
+  clearFormData() {}
 }

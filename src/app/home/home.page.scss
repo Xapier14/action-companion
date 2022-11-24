@@ -10,6 +10,23 @@ ion-header {
     }
 }
 
+// ion-toolbar {
+//     --background: #9c1515;
+//     --color: #ffe4e4;
+// }
+  
+ion-tab-bar {
+    // --background: #9c1515;
+    --border: #5e0505;
+    --color: #ffe4e4;
+}
+
+ion-tab-button {
+    --color: #360606;
+    --color-focused: #9c1515;
+    --color-selected: #9c1515;
+}
+
 .fab-content {
     display: none;
     position: absolute;
@@ -19,4 +36,17 @@ ion-header {
     width: 100vw;
     height: 100%;
     animation: all 1s;
+}
+
+// dark mode
+@media (prefers-color-scheme: dark) {
+    ion-tab-bar {
+        --color: #360606;
+    }
+
+    ion-tab-button {
+        --color: #ffe4e4;
+        --color-focused: #c93030;
+        --color-selected: #c93030;
+    }
 }

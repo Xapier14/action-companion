@@ -1,36 +1,36 @@
 <ion-content [fullscreen]="true">
   <div class="vertical-center">
     <div id="login-container">
-      <img id="logo" src="assets/icon/action-logo.png" />
-      <ion-text id="login-header-text">
-        <h1 style="font-weight: bold">Login to Account</h1>
-      </ion-text>
-      <div class="horizontal-center">
-        <div class="login-inputs">
-          <form [formGroup]="loginForm" (ngSubmit)="submitLogin()" novalidate>
-            <ion-item fill="outline" class="item">
-              <ion-label position="stacked">Email</ion-label>
-              <ion-input
-                formControlName="email"
-                type="email"
-                placeholder="Enter G-Suite email"
-              ></ion-input>
-            </ion-item>
-            <ion-item fill="outline" class="item">
-              <ion-label position="stacked">Password</ion-label>
-              <ion-input
-                formControlName="password"
-                type="password"
-                placeholder="Enter password"
-                [clearOnEdit]="false"
-              ></ion-input>
-            </ion-item>
-            <div class="login-buttons">
-              <ion-button [disabled]="isButtonDisabled" type="submit"
-                >Login</ion-button
-              >
-            </div>
-          </form>
+      <img id="logo" src="assets/text-icon.png" />
+      <div class="login-box">
+        <h1 id="login-header-text" style="font-weight: bold">Login</h1>
+        <div class="horizontal-center">
+          <div class="login-inputs">
+            <form [formGroup]="loginForm" (ngSubmit)="submitLogin()" novalidate>
+              <ion-item fill="outline" class="item">
+                <ion-label position="stacked">Email</ion-label>
+                <ion-input
+                  formControlName="email"
+                  type="email"
+                  placeholder="Enter G-Suite email"
+                ></ion-input>
+              </ion-item>
+              <ion-item fill="outline" class="item">
+                <ion-label position="stacked">Password</ion-label>
+                <ion-input
+                  formControlName="password"
+                  type="password"
+                  placeholder="Enter password"
+                  [clearOnEdit]="false"
+                ></ion-input>
+              </ion-item>
+              <div class="login-buttons">
+                <ion-button [disabled]="isButtonDisabled" type="submit"
+                  >Login</ion-button
+                >
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>

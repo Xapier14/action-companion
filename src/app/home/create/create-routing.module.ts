@@ -6,8 +6,29 @@ import { CreatePage } from './create.page';
 const routes: Routes = [
   {
     path: '',
-    component: CreatePage
-  }
+    component: CreatePage,
+    children: [
+      {
+        path: '',
+        redirectTo: 'inspection',
+        pathMatch: 'full',
+      },
+      {
+        path: 'inspection',
+        loadChildren: () =>
+          import('./inspection/inspection.module').then(
+            (m) => m.InspectionPageModule
+          ),
+      },
+      {
+        path: 'evaluation',
+        loadChildren: () =>
+          import('./evaluation/evaluation.module').then(
+            (m) => m.EvaluationPageModule
+          ),
+      },
+    ],
+  },
 ];
 
 @NgModule({
