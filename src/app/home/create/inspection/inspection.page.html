@@ -1,14 +1,65 @@
+<ion-header>
+  <div class="notice-message">You are creating a new report.</div>
+</ion-header>
 <ion-content>
+  <div class="document-title">Rapid Damage Assessment Form</div>
   <div class="top-bottom">
-    <div class="inspection-form">
-      <div class="section-container">
-        <div class="section-title">Inspection</div>
+    <div class="section-container">
+      <div class="section-title">Inspection</div>
+      <div class="section-item">
+        <span class="section-label">Inspector:</span>
+        <span class="section-data">{{currentName}}</span>
+      </div>
+      <div class="section-item">
+        <span class="section-label">Agency/Campus:</span>
+        <span class="section-data">{{currentLocation}}</span>
+      </div>
+      <div class="section-item">
+        <span class="section-label">Building Inspected:</span>
+        <span class="section-data full-space">
+          <ion-select
+            #buildingselect
+            placeholder="Select building"
+            interface="action-sheet"
+            (ionChange)="buildingChange($event)"
+          >
+            <ion-select-option
+              *ngFor="let building of buildings"
+              [value]="building[0]"
+              >{{building[1]}}</ion-select-option
+            >
+          </ion-select>
+        </span>
+      </div>
+      <div class="section-item-v">
+        <span class="section-label">Areas Inspected:</span>
+        <ion-radio-group
+          #areasradio
+          class="section-data radio-group"
+          value="exterior"
+          (ionChange)="areasChange($event)"
+        >
+          <span><ion-radio value="exterior"></ion-radio> Exterior Only</span>
+          <span
+            ><ion-radio value="exterior&interior"></ion-radio> Exterior &
+            Interior</span
+          >
+        </ion-radio-group>
       </div>
     </div>
-    <div class="nav-toolbar align-right">
-      <ion-button>
-        <ion-icon slot="icon-only" name="arrow-forward-outline"></ion-icon>
-      </ion-button>
+    <div class="page-hint">Page 1 of 5</div>
+    <div class="button-group">
+      <ion-button class="button" (click)="goNext()">Next</ion-button>
     </div>
   </div>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start" id="go-back">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

@@ -16,7 +16,13 @@ export class SettingsPage implements OnInit {
     private authService: AuthService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log('init settings page');
+  }
+
+  ionViewDidLeave() {
+    console.log('left settings page');
+  }
 
   goBack() {
     this.navController.back();

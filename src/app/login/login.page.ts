@@ -6,6 +6,7 @@ import { Preferences } from '@capacitor/preferences';
 import { environment } from 'src/environments/environment';
 
 import { AuthService } from '../services/auth.service';
+import { BuildingsService } from '../services/buildings.service';
 
 @Component({
   selector: 'app-home',
@@ -28,6 +29,7 @@ export class LoginPage {
     private alertController: AlertController,
     private loadingController: LoadingController,
     private authService: AuthService,
+    private buildingsService: BuildingsService,
     private platform: Platform
   ) {
     this.loginForm = formBuilder.group({
@@ -66,6 +68,7 @@ export class LoginPage {
     this.isButtonDisabled = false;
     if (result.sessionState == 'validSession') {
       alert.present();
+      await this.buildingsService.setCurrentLocation(result.location);
       this.router.navigate(['/home']);
     }
   }
@@ -120,6 +123,7 @@ export class LoginPage {
           await wrongCredentails.present();
         } else {
           this.loginForm.setValue({ email: '', password: '' });
+          await this.buildingsService.setCurrentLocation(result.location);
           this.router.navigate(['/home']);
         }
       })

@@ -12,7 +12,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-tabs>
+  <ion-tabs #tabcontrol (ionTabsWillChange)="changeTo(tabcontrol)">
     <ion-tab-bar slot="bottom">
       <ion-tab-button tab="reports">
         <ion-icon name="search-outline"></ion-icon>

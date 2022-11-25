@@ -36,6 +36,7 @@ export class ReportsService {
   }
 
   async getListDataAsync() {
+    console.log('is end of list: ' + this.isEndOfList);
     if (this.isEndOfList) return [];
 
     const token = await this.authService.checkTokenFromPreferences();
@@ -49,11 +50,12 @@ export class ReportsService {
       params.append(key, this.filter[key]);
     }
     const response = await (
-      await this.httpService.getAsync('incidents/list', params, token.token)
+      await this.httpService.getAsync('incidents/', params, token.token)
     ).json();
     if (response.e == 0) {
       this.currentPage++;
       if (this.currentPage > response.maxPageOffset) this.isEndOfList = true;
+      console.log('is end of list NOW: ' + this.isEndOfList);
       return response.reports;
     }
     return [];

@@ -2,57 +2,63 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HttpService {
-
-  constructor() { }
+  constructor() {}
 
   async postJsonAsync(route: string, data: object, token?: string) {
-    const endpoint = environment.apiHost + "/" + route;
+    const endpoint = environment.apiHost + '/' + route;
     return await fetch(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': token
+        Authorization: token,
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     });
   }
 
   async postEncodedAsync(route: string, data: URLSearchParams, token?: string) {
-    const endpoint = environment.apiHost + "/" + route;
+    const endpoint = environment.apiHost + '/' + route;
     return await fetch(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': token
+        Authorization: token,
       },
-      body: data
+      body: data,
     });
   }
 
   async getAsync(route: string, data?: URLSearchParams, token?: string) {
-    const endpoint = environment.apiHost + "/" + route + `?${data}`;
+    const endpoint =
+      environment.apiHost + '/' + route + (data ? `?${data}` : '');
     return await fetch(endpoint, {
       method: 'GET',
       headers: {
-        'Authorization': token
+        Authorization: token,
       },
     });
   }
 
   async getAsyncParams(route: string, query?: object, token?: string) {
-    const endpoint = environment.apiHost + "/" + route + `?${this.queryString(query)}`;
+    const endpoint =
+      environment.apiHost +
+      '/' +
+      route +
+      (query ? `?${this.queryString(query)}` : '');
     return await fetch(endpoint, {
       method: 'GET',
       headers: {
-        'Authorization': token
+        Authorization: token,
       },
     });
   }
 
   private queryString(query: object) {
-    return Object.keys(query).map(key => key + '=' + query[key]).join('&');
+    return Object.keys(query)
+      .map((key) => key + '=' + query[key])
+      .join('&');
   }
 }

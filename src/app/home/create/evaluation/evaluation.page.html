@@ -1,9 +1,153 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Evaluation</ion-title>
-  </ion-toolbar>
+  <div class="notice-message">You are creating a new report.</div>
 </ion-header>
-
 <ion-content>
   <div class="document-title">Rapid Damage Assessment Form</div>
+  <div class="top-bottom">
+    <div class="section-container">
+      <div class="section-title">Evaluation</div>
+      <div class="section-subtitle">
+        Investigate the building and area around it for the conditions below and
+        check the appropriate column.
+      </div>
+      <div class="section-item-v">
+        <div class="section-label-container">
+          <span class="section-label">Observed Conditions:</span>
+          <div class="section-rg-label">
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+          </div>
+        </div>
+        <!-- Collapsed Structure -->
+        <div class="section-data-v">
+          <div class="section-data-item">
+            <span>Collapsed Structure</span>
+            <ion-radio-group class="radio-group" value="0">
+              <ion-radio value="0"></ion-radio>
+              <ion-radio value="1"></ion-radio>
+              <ion-radio value="2"></ion-radio>
+            </ion-radio-group>
+          </div>
+        </div>
+        <!-- Building/Story Leaning or Out of Plumb -->
+        <div class="section-data-v">
+          <div class="section-data-item">
+            <span>Building/Story Leaning or Out of Plumb</span>
+            <ion-radio-group class="radio-group" value="0">
+              <ion-radio value="0"></ion-radio>
+              <ion-radio value="1"></ion-radio>
+              <ion-radio value="2"></ion-radio>
+            </ion-radio-group>
+          </div>
+        </div>
+        <!-- Damage to Primary Structural Members, Racking of Walls -->
+        <div class="section-data-v">
+          <div class="section-data-item">
+            <span>Damage to Primary Structural Members, Racking of Walls</span>
+            <ion-radio-group class="radio-group" value="0">
+              <ion-radio value="0"></ion-radio>
+              <ion-radio value="1"></ion-radio>
+              <ion-radio value="2"></ion-radio>
+            </ion-radio-group>
+          </div>
+        </div>
+        <!-- Falling Hazards -->
+        <div class="section-data-v">
+          <div class="section-data-item">
+            <span>Falling Hazards</span>
+            <ion-radio-group class="radio-group" value="0">
+              <ion-radio value="0"></ion-radio>
+              <ion-radio value="1"></ion-radio>
+              <ion-radio value="2"></ion-radio>
+            </ion-radio-group>
+          </div>
+        </div>
+        <!-- Ground Movement or Slope -->
+        <div class="section-data-v">
+          <div class="section-data-item">
+            <span>Ground Movement or Slope</span>
+            <ion-radio-group class="radio-group" value="0">
+              <ion-radio value="0"></ion-radio>
+              <ion-radio value="1"></ion-radio>
+              <ion-radio value="2"></ion-radio>
+            </ion-radio-group>
+          </div>
+        </div>
+        <!-- Damaged/Submerged Fixtures or Services -->
+        <div class="section-data-v">
+          <div class="section-data-item">
+            <span>Damaged/Submerged Fixtures or Services</span>
+            <ion-radio-group class="radio-group" value="0">
+              <ion-radio value="0"></ion-radio>
+              <ion-radio value="1"></ion-radio>
+              <ion-radio value="2"></ion-radio>
+            </ion-radio-group>
+          </div>
+        </div>
+        <!-- Proximity Risks -->
+        <div class="section-data-v">
+          <div class="section-data-item">
+            <span>Proximity Risks</span>
+            <ion-radio-group class="radio-group" value="0">
+              <ion-radio value="0"></ion-radio>
+              <ion-radio value="1"></ion-radio>
+              <ion-radio value="2"></ion-radio>
+            </ion-radio-group>
+          </div>
+          <div class="section-data-item-v">
+            <span>Proximity Risk Details: </span>
+            <span style="width: 95%" class="inline-style">
+              <ion-textarea
+                placeholder="Type something here"
+                autoGrow="true"
+              ></ion-textarea
+            ></span>
+          </div>
+        </div>
+        <!-- Section info helper -->
+        <span class="section-info"
+          >1 = Minor/None; 2 = Major; 3 = Critical</span
+        >
+        <!-- Estimated Damage -->
+        <div class="section-item">
+          <span class="section-label">Estimated Damage:</span>
+          <span class="section-data full-space">
+            <ion-select placeholder="Select estimate" interface="action-sheet">
+              <ion-select-option value="0">None</ion-select-option>
+              <ion-select-option value="1">1-10%</ion-select-option>
+              <ion-select-option value="2">11-30%</ion-select-option>
+              <ion-select-option value="3">31-60%</ion-select-option>
+              <ion-select-option value="4">61-99%</ion-select-option>
+              <ion-select-option value="5">100%</ion-select-option>
+            </ion-select>
+          </span>
+        </div>
+        <!-- Comments -->
+        <div class="section-item-v">
+          <span class="section-label">Comments:</span>
+          <span class="section-data block-style">
+            <ion-textarea
+              placeholder="Type something here"
+              autoGrow="true"
+            ></ion-textarea>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="page-hint">Page 2 of 5</div>
+    <div class="button-group">
+      <ion-button class="button" (click)="goNext()">Next</ion-button>
+    </div>
+  </div>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start" id="go-back">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

@@ -19,11 +19,6 @@ const routes: Routes = [
           import('./reports/reports.module').then((m) => m.ReportsPageModule),
       },
       {
-        path: 'create',
-        loadChildren: () =>
-          import('./create/create.module').then((m) => m.CreatePageModule),
-      },
-      {
         path: '',
         redirectTo: 'feed',
         pathMatch: 'full',
@@ -39,6 +34,30 @@ const routes: Routes = [
     path: 'settings',
     loadChildren: () =>
       import('./settings/settings.module').then((m) => m.SettingsPageModule),
+  },
+  {
+    path: 'create',
+    children: [
+      {
+        path: '',
+        redirectTo: 'inspection',
+        pathMatch: 'full',
+      },
+      {
+        path: 'inspection',
+        loadChildren: () =>
+          import('./create/inspection/inspection.module').then(
+            (m) => m.InspectionPageModule
+          ),
+      },
+      {
+        path: 'evaluation',
+        loadChildren: () =>
+          import('./create/evaluation/evaluation.module').then(
+            (m) => m.EvaluationPageModule
+          ),
+      },
+    ],
   },
 ];
 

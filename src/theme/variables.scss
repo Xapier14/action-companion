@@ -235,7 +235,7 @@
   }
 }
 
-ion-header > ion-toolbar {
+ion-header > ion-toolbar, ion-header > ion-toolbar.ios {
   --background: #9c1515;
   --color: #ffe4e4;
 }

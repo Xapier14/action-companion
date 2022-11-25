@@ -52,7 +52,10 @@ export class DetailPage implements OnInit {
       errorAlert.present();
       return;
     }
-    report.building = this.buildingsService.getBuildingName(report.buildingId);
+    report.building = this.buildingsService.getBuildingName(
+      report.buildingId,
+      report.location
+    );
     report.buildingDamageString = (() => {
       switch (report.estimatedBuildingDamage) {
         case 0:
@@ -74,7 +77,8 @@ export class DetailPage implements OnInit {
     if (report.building === 'Unknown') {
       await this.buildingsService.updateBuildingCache(report.location);
       report.building = this.buildingsService.getBuildingName(
-        report.buildingId
+        report.buildingId,
+        report.location
       );
     }
     report.inspector = (

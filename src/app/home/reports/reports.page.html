@@ -21,12 +21,13 @@
         </ion-select>
       </ion-item>
     </ion-list>
-    <ion-list *ngFor="let report of reports">
+    <ion-list>
       <ion-item
         button
         (click)="viewDetail(report.id)"
         detail="false"
         class="report-item"
+        *ngFor="let report of reports"
       >
         <ion-label>
           <h2>

@@ -56,4 +56,8 @@ export class HomePage implements OnInit {
   navigateToSettings() {
     this.router.navigate(['/home/settings']);
   }
+
+  changeTo(tabControl) {
+    this.router.navigate(['home', tabControl.getSelected()]);
+  }
 }
