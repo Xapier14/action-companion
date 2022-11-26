@@ -63,7 +63,7 @@ export class InspectionPage implements OnInit {
 
   async goNext() {
     const alert = await this.alertController.create({
-      header: 'Invalid Input',
+      header: 'Error',
       message: 'One or more fields are missing or invalid.',
       buttons: ['OK'],
     });

@@ -23,7 +23,7 @@
         <div class="section-data-v">
           <div class="section-data-item">
             <span>Collapsed Structure</span>
-            <ion-radio-group class="radio-group" value="0">
+            <ion-radio-group #collapsedRadio class="radio-group" value="{{collapsed}}">
               <ion-radio value="0"></ion-radio>
               <ion-radio value="1"></ion-radio>
               <ion-radio value="2"></ion-radio>
@@ -34,7 +34,7 @@
         <div class="section-data-v">
           <div class="section-data-item">
             <span>Building/Story Leaning or Out of Plumb</span>
-            <ion-radio-group class="radio-group" value="0">
+            <ion-radio-group #leaningRadio class="radio-group" value="{{leaning}}">
               <ion-radio value="0"></ion-radio>
               <ion-radio value="1"></ion-radio>
               <ion-radio value="2"></ion-radio>
@@ -45,7 +45,7 @@
         <div class="section-data-v">
           <div class="section-data-item">
             <span>Damage to Primary Structural Members, Racking of Walls</span>
-            <ion-radio-group class="radio-group" value="0">
+            <ion-radio-group #structuralRadio class="radio-group" value="{{structural}}">
               <ion-radio value="0"></ion-radio>
               <ion-radio value="1"></ion-radio>
               <ion-radio value="2"></ion-radio>
@@ -56,7 +56,11 @@
         <div class="section-data-v">
           <div class="section-data-item">
             <span>Falling Hazards</span>
-            <ion-radio-group class="radio-group" value="0">
+            <ion-radio-group
+              #fallingRadio
+              class="radio-group"
+              value="{{falling}}"
+            >
               <ion-radio value="0"></ion-radio>
               <ion-radio value="1"></ion-radio>
               <ion-radio value="2"></ion-radio>
@@ -67,7 +71,11 @@
         <div class="section-data-v">
           <div class="section-data-item">
             <span>Ground Movement or Slope</span>
-            <ion-radio-group class="radio-group" value="0">
+            <ion-radio-group
+              #groundRadio
+              class="radio-group"
+              value="{{ground}}"
+            >
               <ion-radio value="0"></ion-radio>
               <ion-radio value="1"></ion-radio>
               <ion-radio value="2"></ion-radio>
@@ -78,7 +86,11 @@
         <div class="section-data-v">
           <div class="section-data-item">
             <span>Damaged/Submerged Fixtures or Services</span>
-            <ion-radio-group class="radio-group" value="0">
+            <ion-radio-group
+              #submergedRadio
+              class="radio-group"
+              value="{{submerged}}"
+            >
               <ion-radio value="0"></ion-radio>
               <ion-radio value="1"></ion-radio>
               <ion-radio value="2"></ion-radio>
@@ -89,31 +101,45 @@
         <div class="section-data-v">
           <div class="section-data-item">
             <span>Proximity Risks</span>
-            <ion-radio-group class="radio-group" value="0">
+            <ion-radio-group
+              #proximityRadio
+              class="radio-group"
+              value="{{proximity}}"
+            >
               <ion-radio value="0"></ion-radio>
               <ion-radio value="1"></ion-radio>
               <ion-radio value="2"></ion-radio>
             </ion-radio-group>
           </div>
           <div class="section-data-item-v">
-            <span>Proximity Risk Details: </span>
-            <span style="width: 95%" class="inline-style">
+            <span>Proximity Risk Details:</span>
+            <span
+              style="width: 95%; text-transform: none;"
+              class="inline-style"
+            >
               <ion-textarea
+                #proximityTextArea
                 placeholder="Type something here"
                 autoGrow="true"
-              ></ion-textarea
-            ></span>
+                value="{{proximityText}}"
+              ></ion-textarea>
+            </span>
           </div>
         </div>
         <!-- Section info helper -->
-        <span class="section-info"
-          >1 = Minor/None; 2 = Major; 3 = Critical</span
-        >
+        <span class="section-info">
+          1 = Minor/None; 2 = Major; 3 = Critical
+        </span>
         <!-- Estimated Damage -->
         <div class="section-item">
           <span class="section-label">Estimated Damage:</span>
           <span class="section-data full-space">
-            <ion-select placeholder="Select estimate" interface="action-sheet">
+            <ion-select
+              #damageSelect
+              placeholder="Select estimate"
+              interface="action-sheet"
+              value="{{damage}}"
+            >
               <ion-select-option value="0">None</ion-select-option>
               <ion-select-option value="1">1-10%</ion-select-option>
               <ion-select-option value="2">11-30%</ion-select-option>
@@ -128,8 +154,10 @@
           <span class="section-label">Comments:</span>
           <span class="section-data block-style">
             <ion-textarea
+              #commentTextArea
               placeholder="Type something here"
               autoGrow="true"
+              value="{{commentText}}"
             ></ion-textarea>
           </span>
         </div>
