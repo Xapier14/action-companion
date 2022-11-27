@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core'
-import { IonCheckbox, IonTextarea, NavController } from '@ionic/angular'
-import { CreateReportService } from 'src/app/services/create-report.service'
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonCheckbox, IonTextarea, NavController } from '@ionic/angular';
+import { CreateReportService } from 'src/app/services/create-report.service';
 
 @Component({
   selector: 'app-posting',
@@ -16,7 +16,8 @@ export class PostingPage implements OnInit {
   @ViewChild('briefEntryCheckbox') briefEntryCheckbox: IonCheckbox;
   @ViewChild('briefEntryTextArea') briefEntryTextArea: IonTextarea;
   @ViewChild('doNotUseCheckbox') doNotUseCheckbox: IonCheckbox;
-  @ViewChild('otherRestrictionsTextArea') otherRestrictionsTextArea: IonTextarea;
+  @ViewChild('otherRestrictionsTextArea')
+  otherRestrictionsTextArea: IonTextarea;
   inspected: boolean;
   restricted: boolean;
   unsafe: boolean;
@@ -29,7 +30,7 @@ export class PostingPage implements OnInit {
 
   constructor(
     private createReportService: CreateReportService,
-    private navController: NavController,
+    private navController: NavController
   ) {}
 
   ngOnInit() {
@@ -46,12 +47,14 @@ export class PostingPage implements OnInit {
 
   async goNext() {
     this.updateChanges();
-    this.navController.navigateForward('/home/create/attachments', { animated: false });
+    this.navController.navigateForward('/home/create/actions', {
+      animated: false,
+    });
   }
 
   async goBack() {
-    this.updateChanges()
-    this.navController.back({ animated: false })
+    this.updateChanges();
+    this.navController.back({ animated: false });
   }
 
   updateChanges() {
@@ -70,6 +73,8 @@ export class PostingPage implements OnInit {
     this.createReportService.setBriefEntry(this.briefEntryCheckbox.checked);
     this.createReportService.setBriefEntryText(this.briefEntryTextArea.value);
     this.createReportService.setDoNotUse(this.doNotUseCheckbox.checked);
-    this.createReportService.setOtherRestrictions(this.otherRestrictionsTextArea.value);
+    this.createReportService.setOtherRestrictions(
+      this.otherRestrictionsTextArea.value
+    );
   }
 }

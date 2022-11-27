@@ -5,7 +5,7 @@
   <div class="document-title">Rapid Damage Assessment Form</div>
   <div class="top-bottom">
     <div class="section-container">
-      <div class="section-title">Postings</div>
+      <div class="section-title">Posting</div>
       <div class="section-subtitle">
         Severe conditions endangering the overall building are grounds for an
         Unsafe posting. Localised service and overall Moderate conditions allow
@@ -17,11 +17,17 @@
         <span class="section-label">Placards:</span>
         <div class="section-data checkbox-group">
           <div>
-            <ion-checkbox #inspectedCheckbox checked="{{inspected}}"></ion-checkbox>
+            <ion-checkbox
+              #inspectedCheckbox
+              checked="{{inspected}}"
+            ></ion-checkbox>
             <span>Inspected</span>
           </div>
           <div>
-            <ion-checkbox #restrictedCheckbox checked="{{restricted}}"></ion-checkbox>
+            <ion-checkbox
+              #restrictedCheckbox
+              checked="{{restricted}}"
+            ></ion-checkbox>
             <span>Restricted Use</span>
           </div>
           <div>
@@ -34,7 +40,10 @@
         <span class="section-label section-item">Observed Conditions:</span>
         <div class="section-item-v">
           <div class="section-label">
-            <ion-checkbox #doNotEnterCheckbox checked="{{doNotEnter}}"></ion-checkbox>
+            <ion-checkbox
+              #doNotEnterCheckbox
+              checked="{{doNotEnter}}"
+            ></ion-checkbox>
             <span>Do not use or enter the following areas:</span>
           </div>
           <span class="section-data block-style">
@@ -49,7 +58,10 @@
         </div>
         <div class="section-item-v">
           <div class="section-label">
-            <ion-checkbox #briefEntryCheckbox checked="{{briefEntry}}"></ion-checkbox>
+            <ion-checkbox
+              #briefEntryCheckbox
+              checked="{{briefEntry}}"
+            ></ion-checkbox>
             <span>Brief entry allowed for access to contents:</span>
           </div>
           <span class="section-data block-style">
@@ -64,7 +76,10 @@
         </div>
         <div class="section-item-v">
           <div class="section-label">
-            <ion-checkbox #doNotUseCheckbox checked="{{doNotUse}}"></ion-checkbox>
+            <ion-checkbox
+              #doNotUseCheckbox
+              checked="{{doNotUse}}"
+            ></ion-checkbox>
             <span>
               Do not use flooded/damaged appliances, devices or services
               (electric, gas) until rectified by a licensed contractor

@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core'
-import { Routes, RouterModule } from '@angular/router'
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
-import { HomePage } from './home.page'
+import { HomePage } from './home.page';
 
 const routes: Routes = [
   {
@@ -47,26 +47,33 @@ const routes: Routes = [
         path: 'inspection',
         loadChildren: () =>
           import('./create/inspection/inspection.module').then(
-            (m) => m.InspectionPageModule,
+            (m) => m.InspectionPageModule
           ),
       },
       {
         path: 'evaluation',
         loadChildren: () =>
           import('./create/evaluation/evaluation.module').then(
-            (m) => m.EvaluationPageModule,
+            (m) => m.EvaluationPageModule
           ),
       },
       {
         path: 'posting',
         loadChildren: () =>
           import('./create/posting/posting.module').then(
-            (m) => m.PostingPageModule,
+            (m) => m.PostingPageModule
+          ),
+      },
+      {
+        path: 'actions',
+        loadChildren: () =>
+          import('./create/further-actions/further-actions.module').then(
+            (m) => m.FurtherActionsPageModule
           ),
       },
     ],
   },
-]
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

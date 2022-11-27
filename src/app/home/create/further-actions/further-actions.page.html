@@ -1,0 +1,25 @@
+<ion-header>
+  <div class="notice-message">You are creating a new report.</div>
+</ion-header>
+<ion-content>
+  <div class="document-title">Rapid Damage Assessment Form</div>
+  <div class="top-bottom">
+    <div class="section-container">
+      <div class="section-title">Further Actions</div>
+    </div>
+    <div class="page-hint">Page 4 of 5</div>
+    <div class="button-group">
+      <ion-button class="button" (click)="goNext()">Next</ion-button>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start" id="go-back">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
