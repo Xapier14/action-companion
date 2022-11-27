@@ -1,7 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-avatar slot="start">
-      <img src="assets/icon/action-logo.png" alt="ACTION" />
+      <a [routerLink]="" (click)="gotoHomeFeed()">
+        <img src="assets/icon/action-logo.png" alt="ACTION" />
+      </a>
     </ion-avatar>
     <ion-buttons slot="end">
       <ion-button (click)="navigateToSettings()">

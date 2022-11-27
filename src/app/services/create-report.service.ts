@@ -28,6 +28,17 @@ export class CreateReportService {
   private estimatedBuildingDamage: number;
   private evaluationComments: string;
 
+  // postings
+  private inspected: boolean;
+  private restricted: boolean;
+  private unsafe: boolean;
+  private doNotEnter: boolean;
+  private doNotEnterText: string;
+  private briefEntry: boolean;
+  private briefEntryText: string;
+  private doNotUse: boolean;
+  private otherRestrictions: string;
+
   private attachments: string[] = [];
 
   constructor() {
@@ -86,6 +97,33 @@ export class CreateReportService {
   getEvaluationComments(): string {
     return this.evaluationComments;
   }
+  getInspected(): boolean {
+    return this.inspected;
+  }
+  getRestricted(): boolean {
+    return this.restricted;
+  }
+  getUnsafe(): boolean {
+    return this.unsafe;
+  }
+  getDoNotEnter(): boolean {
+    return this.doNotEnter;
+  }
+  getDoNotEnterText(): string {
+    return this.doNotEnterText;
+  }
+  getBriefEntry(): boolean {
+    return this.briefEntry;
+  }
+  getBriefEntryText(): string {
+    return this.briefEntryText;
+  }
+  getDoNotUse(): boolean {
+    return this.doNotUse;
+  }
+  getOtherRestrictions(): string {
+    return this.otherRestrictions;
+  }
   getAttachments(): string[] {
     return this.attachments;
   }
@@ -142,7 +180,33 @@ export class CreateReportService {
   setEvaluationComments(evaluationComments: string) {
     this.evaluationComments = evaluationComments;
   }
-
+  setInspected(inspected: boolean) {
+    this.inspected = inspected;
+  }
+  setRestricted(restricted: boolean) {
+    this.restricted = restricted;
+  }
+  setUnsafe(unsafe: boolean) {
+    this.unsafe = unsafe;
+  }
+  setDoNotEnter(doNotEnter: boolean) {
+    this.doNotEnter = doNotEnter;
+  }
+  setDoNotEnterText(doNotEnterText: string) {
+    this.doNotEnterText = doNotEnterText;
+  }
+  setBriefEntry(briefEntry: boolean) {
+    this.briefEntry = briefEntry;
+  }
+  setBriefEntryText(briefEntryText: string) {
+    this.briefEntryText = briefEntryText;
+  }
+  setDoNotUse(doNotUse: boolean) {
+    this.doNotUse = doNotUse;
+  }
+  setOtherRestrictions(otherRestrictions: string) {
+    this.otherRestrictions = otherRestrictions;
+  }
   addAttachment(attachment: string) {
     this.attachments.push(attachment);
   }
@@ -168,6 +232,16 @@ export class CreateReportService {
 
     this.evaluationComments = "";
     this.estimatedBuildingDamage = 0;
+
+    this.inspected = false;
+    this.restricted = false;
+    this.unsafe = false;
+    this.doNotEnter = false;
+    this.doNotEnterText = "";
+    this.briefEntry = false;
+    this.briefEntryText = "";
+    this.doNotUse = false;
+    this.otherRestrictions = "";
 
     this.attachments = [];
   }

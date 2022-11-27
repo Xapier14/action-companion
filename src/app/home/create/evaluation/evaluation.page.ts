@@ -37,7 +37,6 @@ export class EvaluationPage implements OnInit {
   }
 
   ngOnInit() {
-    console.log("repopulate");
     this.collapsed = this.createReportService.getCollapsedStructure();
     this.leaning = this.createReportService.getLeaningOrOutOfPlumb();
     this.structural = this.createReportService.getDamageToPrimaryStructure();

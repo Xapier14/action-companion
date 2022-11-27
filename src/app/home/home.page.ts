@@ -60,4 +60,8 @@ export class HomePage implements OnInit {
   changeTo(tabControl) {
     this.router.navigate(['home', tabControl.getSelected()]);
   }
+
+  gotoHomeFeed() {
+    this.router.navigate(['/home/feed']);
+  }
 }

@@ -85,6 +85,20 @@
     --padding-bottom: 0;
 }
 
+.block-style > ion-textarea {
+    --padding-top: 0;
+    --padding-start: 0.5rem;
+    --padding-end: 0.5rem;
+    --padding-bottom: 0.5rem;
+}
+
+.inline-style > ion-textarea {
+    --padding-top: 0;
+    --padding-start: 0;
+    --padding-end: 0;
+    --padding-bottom: 0;
+}
+
 
 // dark mode
 @media (prefers-color-scheme: dark) {

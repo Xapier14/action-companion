@@ -5,7 +5,90 @@
   <div class="document-title">Rapid Damage Assessment Form</div>
   <div class="top-bottom">
     <div class="section-container">
-      <div class="section-title">Posting</div>
+      <div class="section-title">Postings</div>
+      <div class="section-subtitle">
+        Severe conditions endangering the overall building are grounds for an
+        Unsafe posting. Localised service and overall Moderate conditions allow
+        a Restricted Use posting. Where required, ensure that RESTRICTED USE and
+        UNSAFE placards are posted at all entrances.
+      </div>
+      <!-- Placards -->
+      <div class="section-item-v">
+        <span class="section-label">Placards:</span>
+        <div class="section-data checkbox-group">
+          <div>
+            <ion-checkbox #inspectedCheckbox checked="{{inspected}}"></ion-checkbox>
+            <span>Inspected</span>
+          </div>
+          <div>
+            <ion-checkbox #restrictedCheckbox checked="{{restricted}}"></ion-checkbox>
+            <span>Restricted Use</span>
+          </div>
+          <div>
+            <ion-checkbox #unsafeCheckbox checked="{{unsafe}}"></ion-checkbox>
+            <span>Unsafe</span>
+          </div>
+        </div>
+      </div>
+      <div class="section-item-v">
+        <span class="section-label section-item">Observed Conditions:</span>
+        <div class="section-item-v">
+          <div class="section-label">
+            <ion-checkbox #doNotEnterCheckbox checked="{{doNotEnter}}"></ion-checkbox>
+            <span>Do not use or enter the following areas:</span>
+          </div>
+          <span class="section-data block-style">
+            <ion-textarea
+              #doNotEnterTextArea
+              placeholder="Type something here"
+              autoGrow="true"
+              disabled="{{!doNotEnterCheckbox.checked}}"
+              value="{{doNotEnterText}}"
+            ></ion-textarea>
+          </span>
+        </div>
+        <div class="section-item-v">
+          <div class="section-label">
+            <ion-checkbox #briefEntryCheckbox checked="{{briefEntry}}"></ion-checkbox>
+            <span>Brief entry allowed for access to contents:</span>
+          </div>
+          <span class="section-data block-style">
+            <ion-textarea
+              #briefEntryTextArea
+              placeholder="Type something here"
+              autoGrow="true"
+              disabled="{{!briefEntryCheckbox.checked}}"
+              value="{{briefEntryText}}"
+            ></ion-textarea>
+          </span>
+        </div>
+        <div class="section-item-v">
+          <div class="section-label">
+            <ion-checkbox #doNotUseCheckbox checked="{{doNotUse}}"></ion-checkbox>
+            <span>
+              Do not use flooded/damaged appliances, devices or services
+              (electric, gas) until rectified by a licensed contractor
+            </span>
+          </div>
+        </div>
+        <div class="section-item-v">
+          <div class="section-label">
+            <span>Other restrictions:</span>
+          </div>
+          <span class="section-data block-style">
+            <ion-textarea
+              #otherRestrictionsTextArea
+              placeholder="Type something here"
+              autoGrow="true"
+              value="{{otherRestrictions}}"
+            ></ion-textarea>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="page-hint">Page 3 of 5</div>
+    <div class="button-group">
+      <ion-button class="button" (click)="goNext()">Next</ion-button>
     </div>
   </div>
 </ion-content>
