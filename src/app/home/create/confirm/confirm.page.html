@@ -9,6 +9,7 @@
 <ion-content>
   <div class="document-title">Rapid Damage Assessment Form</div>
   <div class="top-bottom">
+    <!-- Inspection -->
     <div class="section-container">
       <div class="section-title">Inspection</div>
       <div class="section-item">
@@ -40,8 +41,266 @@
         </ion-radio-group>
       </div>
     </div>
+    <!-- Evaluation -->
+    <div class="section-container">
+      <div class="section-title">Evaluation</div>
+      <div class="section-subtitle">
+        Investigate the building and area around it for the conditions below and
+        check the appropriate column.
+      </div>
+      <div class="section-item-v">
+        <div class="section-label-container">
+          <span class="section-label">Observed Conditions:</span>
+          <div class="section-rg-label">
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+          </div>
+        </div>
+        <!-- Collapsed Structure -->
+        <div class="section-data-v">
+          <div class="section-data-item">
+            <span>Collapsed Structure</span>
+            <ion-radio-group class="radio-group" value="{{collapsedStructure}}">
+              <ion-radio disabled value="0"></ion-radio>
+              <ion-radio disabled value="1"></ion-radio>
+              <ion-radio disabled value="2"></ion-radio>
+            </ion-radio-group>
+          </div>
+        </div>
+        <!-- Building/Story Leaning or Out of Plumb -->
+        <div class="section-data-v">
+          <div class="section-data-item">
+            <span>Building/Story Leaning or Out of Plumb</span>
+            <ion-radio-group
+              class="radio-group"
+              value="{{leaningOrOutOfPlumb}}"
+            >
+              <ion-radio disabled value="0"></ion-radio>
+              <ion-radio disabled value="1"></ion-radio>
+              <ion-radio disabled value="2"></ion-radio>
+            </ion-radio-group>
+          </div>
+        </div>
+        <!-- Damage to Primary Structural Members, Racking of Walls -->
+        <div class="section-data-v">
+          <div class="section-data-item">
+            <span>Damage to Primary Structural Members, Racking of Walls</span>
+            <ion-radio-group
+              class="radio-group"
+              value="{{damageToPrimaryStructure}}"
+            >
+              <ion-radio disabled value="0"></ion-radio>
+              <ion-radio disabled value="1"></ion-radio>
+              <ion-radio disabled value="2"></ion-radio>
+            </ion-radio-group>
+          </div>
+        </div>
+        <!-- Falling Hazards -->
+        <div class="section-data-v">
+          <div class="section-data-item">
+            <span>Falling Hazards</span>
+            <ion-radio-group class="radio-group" value="{{fallingHazards}}">
+              <ion-radio disabled value="0"></ion-radio>
+              <ion-radio disabled value="1"></ion-radio>
+              <ion-radio disabled value="2"></ion-radio>
+            </ion-radio-group>
+          </div>
+        </div>
+        <!-- Ground Movement or Slope -->
+        <div class="section-data-v">
+          <div class="section-data-item">
+            <span>Ground Movement or Slope</span>
+            <ion-radio-group
+              class="radio-group"
+              value="{{groundMovementOrSlope}}"
+            >
+              <ion-radio disabled value="0"></ion-radio>
+              <ion-radio disabled value="1"></ion-radio>
+              <ion-radio disabled value="2"></ion-radio>
+            </ion-radio-group>
+          </div>
+        </div>
+        <!-- Damaged/Submerged Fixtures or Services -->
+        <div class="section-data-v">
+          <div class="section-data-item">
+            <span>Damaged/Submerged Fixtures or Services</span>
+            <ion-radio-group
+              class="radio-group"
+              value="{{damagedSubmergedFixtures}}"
+            >
+              <ion-radio disabled value="0"></ion-radio>
+              <ion-radio disabled value="1"></ion-radio>
+              <ion-radio disabled value="2"></ion-radio>
+            </ion-radio-group>
+          </div>
+        </div>
+        <!-- Proximity Risks -->
+        <div class="section-data-v">
+          <div class="section-data-item">
+            <span>Proximity Risks</span>
+            <ion-radio-group class="radio-group" value="{{proximityRisk}}">
+              <ion-radio disabled value="0"></ion-radio>
+              <ion-radio disabled value="1"></ion-radio>
+              <ion-radio disabled value="2"></ion-radio>
+            </ion-radio-group>
+          </div>
+          <div class="section-data-item-v">
+            <span>Proximity Risk Details: </span>
+            <span style="width: 95%">{{proximityRiskTitle}}</span>
+          </div>
+        </div>
+        <!-- Section info helper -->
+        <span class="section-info"
+          >1 = Minor/None; 2 = Major; 3 = Critical</span
+        >
+        <!-- Estimated Damage -->
+        <div class="section-item">
+          <span class="section-label">Estimated Damage:</span>
+          <span class="section-data">{{buildingDamageString}}</span>
+        </div>
+        <!-- Comments -->
+        <div class="section-item-v">
+          <span class="section-label">Comments:</span>
+          <span class="section-data block-style">{{evaluationComments}}</span>
+        </div>
+      </div>
+    </div>
+    <!-- Posting -->
+    <div class="section-container">
+      <div class="section-title">Posting</div>
+      <div class="section-subtitle">
+        Severe conditions endangering the overall building are grounds for an
+        Unsafe posting. Localised service and overall Moderate conditions allow
+        a Restricted Use posting. Where required, ensure that RESTRICTED USE and
+        UNSAFE placards are posted at all entrances.
+      </div>
+      <!-- Placards -->
+      <div class="section-item-v">
+        <span class="section-label">Placards:</span>
+        <div class="section-data checkbox-group">
+          <div>
+            <ion-checkbox disabled checked="{{inspected}}"></ion-checkbox>
+            <span>Inspected</span>
+          </div>
+          <div>
+            <ion-checkbox disabled checked="{{restricted}}"></ion-checkbox>
+            <span>Restricted Use</span>
+          </div>
+          <div>
+            <ion-checkbox disabled checked="{{unsafe}}"></ion-checkbox>
+            <span>Unsafe</span>
+          </div>
+        </div>
+      </div>
+      <div class="section-item-v">
+        <span class="section-label section-item">Observed Conditions:</span>
+        <div class="section-item-v">
+          <div class="section-label">
+            <ion-checkbox disabled checked="{{doNotEnter}}"></ion-checkbox>
+            <span>Do not use or enter the following areas:</span>
+          </div>
+          <span class="section-data block-style">{{doNotEnterText}}</span>
+        </div>
+        <div class="section-item-v">
+          <div class="section-label">
+            <ion-checkbox disabled checked="{{briefEntry}}"></ion-checkbox>
+            <span>Brief entry allowed for access to contents:</span>
+          </div>
+          <span class="section-data block-style">{{briefEntryText}}</span>
+        </div>
+        <div class="section-item-v">
+          <div class="section-label">
+            <ion-checkbox disabled checked="{{doNotUse}}"></ion-checkbox>
+            <span
+              >Do not use flooded/damaged appliances, devices or services
+              (electric, gas) until rectified by a licensed contractor</span
+            >
+          </div>
+        </div>
+        <div class="section-item-v">
+          <div class="section-label">
+            <span>Other restrictions:</span>
+          </div>
+          <span class="section-data block-style">{{otherRestrictions}}</span>
+        </div>
+      </div>
+    </div>
+    <!-- Further Actions -->
+    <div class="section-container">
+      <div class="section-title">Further Actions</div>
+      <div class="section-subtitle">
+        Check the boxes below ONLY if further actions are needed.
+      </div>
+      <div class="section-item-v">
+        <div class="section-label">
+          <ion-checkbox disabled checked="{{barricadeComment}}"></ion-checkbox>
+          <span>Barricades needed in the following areas:</span>
+        </div>
+        <span class="section-data block-style">{{barricadeCommentText}}</span>
+      </div>
+      <div class="section-item-v">
+        <div class="section-label">
+          <ion-checkbox
+            disabled
+            checked="{{detailedEvaluationAreas}}"
+          ></ion-checkbox>
+          <span>Detailed evaluation recommended:</span>
+        </div>
+        <div class="section-data checkbox-group block-style">
+          <div>
+            <ion-checkbox
+              disabled
+              checked="{{detailedEvaluationAreasStructural}}"
+            ></ion-checkbox>
+            <span>Structural</span>
+          </div>
+          <div>
+            <ion-checkbox
+              disabled
+              checked="{{detailedEvaluationAreasGeotechnical}}"
+            ></ion-checkbox>
+            <span>Geotechnical</span>
+          </div>
+          <div>
+            <ion-checkbox
+              disabled
+              checked="{{detailedEvaluationAreasOther}}"
+            ></ion-checkbox>
+            <span>Other</span>
+          </div>
+        </div>
+      </div>
+      <div class="section-item-v">
+        <div class="section-label">
+          <ion-checkbox
+            disabled
+            checked="{{otherRecommendations}}"
+          ></ion-checkbox>
+          <span>Other recommendations:</span>
+        </div>
+        <span class="section-data block-style"
+          >{{otherRecommendationsText}}</span
+        >
+      </div>
+      <div class="section-item-v">
+        <div class="section-label">
+          <span>Comments:</span>
+        </div>
+        <span class="section-data block-style">{{commentsText}}</span>
+      </div>
+    </div>
+    <!-- Attachments -->
+    <div class="section-container">
+      <div class="section-title">Attachments</div>
+    </div>
     <div class="button-group">
-      <ion-button disabled="{{submitted}}" class="button" (click)="submitClick()">Submit</ion-button>
+      <ion-button
+        disabled="{{submitted}}"
+        class="button"
+        (click)="submitClick()"
+        >Submit</ion-button
+      >
     </div>
   </div>
 </ion-content>

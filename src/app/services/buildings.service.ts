@@ -56,7 +56,7 @@ export class BuildingsService {
         `Building cache updated for location ${targetLocation}, ${buildingMap.size} buildings found.`
       );
     } else {
-      console.log(response);
+      console.log('Error updating building cache.');
     }
   }
 

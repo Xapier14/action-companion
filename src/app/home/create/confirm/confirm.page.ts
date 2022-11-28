@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController, NavController } from '@ionic/angular';
+import {
+  AlertController,
+  LoadingController,
+  NavController,
+} from '@ionic/angular';
 import { CreateReportService } from 'src/app/services/create-report.service';
 import { BuildingsService } from 'src/app/services/buildings.service';
 import { IdentityCacheService } from 'src/app/services/identity-cache.service';
@@ -13,6 +17,7 @@ import { Router } from '@angular/router';
 export class ConfirmPage implements OnInit {
   // state
   submitted: boolean = false;
+  buildingDamageString: string = 'Unknown';
 
   // inspection
   inspectorId: string;
@@ -67,7 +72,8 @@ export class ConfirmPage implements OnInit {
     private navController: NavController,
     private router: Router,
     private alertController: AlertController,
-    private loadingController: LoadingController) { }
+    private loadingController: LoadingController
+  ) {}
 
   async ngOnInit() {
     if (this.createReportService.getInspectorId() == undefined) {
@@ -81,16 +87,21 @@ export class ConfirmPage implements OnInit {
     this.location = this.createReportService.getLocation();
     this.areasInspected = this.createReportService.getAreasInspected();
     this.buildingId = this.createReportService.getBuildingId();
-    this.inspectedDateTime = "auto-generated";
+    this.inspectedDateTime = 'auto-generated';
     this.collapsedStructure = this.createReportService.getCollapsedStructure();
-    this.leaningOrOutOfPlumb = this.createReportService.getLeaningOrOutOfPlumb();
-    this.damageToPrimaryStructure = this.createReportService.getDamageToPrimaryStructure();
+    this.leaningOrOutOfPlumb =
+      this.createReportService.getLeaningOrOutOfPlumb();
+    this.damageToPrimaryStructure =
+      this.createReportService.getDamageToPrimaryStructure();
     this.fallingHazards = this.createReportService.getFallingHazards();
-    this.groundMovementOrSlope = this.createReportService.getGroundMovementOrSlope();
-    this.damagedSubmergedFixtures = this.createReportService.getDamagedSubmergedFixtures();
+    this.groundMovementOrSlope =
+      this.createReportService.getGroundMovementOrSlope();
+    this.damagedSubmergedFixtures =
+      this.createReportService.getDamagedSubmergedFixtures();
     this.proximityRisk = this.createReportService.getProximityRisk();
     this.proximityRiskTitle = this.createReportService.getProximityRiskTitle();
-    this.estimatedBuildingDamage = this.createReportService.getEstimatedBuildingDamage();
+    this.estimatedBuildingDamage =
+      this.createReportService.getEstimatedBuildingDamage();
     this.evaluationComments = this.createReportService.getEvaluationComments();
     this.inspected = this.createReportService.getInspected();
     this.restricted = this.createReportService.getRestricted();
@@ -102,22 +113,61 @@ export class ConfirmPage implements OnInit {
     this.doNotUse = this.createReportService.getDoNotUse();
     this.otherRestrictions = this.createReportService.getOtherRestrictions();
     this.barricadeComment = this.createReportService.getBarricadeComment();
-    this.barricadeCommentText = this.createReportService.getBarricadeCommentText();
-    this.detailedEvaluationAreas = this.createReportService.getDetailedEvaluationAreas();
-    this.detailedEvaluationAreasStructural = this.createReportService.getDetailedEvaluationAreasStructural();
-    this.detailedEvaluationAreasGeotechnical = this.createReportService.getDetailedEvaluationAreasGeotechnical();
-    this.detailedEvaluationAreasOther = this.createReportService.getDetailedEvaluationAreasOther();
-    this.otherRecommendations = this.createReportService.getOtherRecommendations();
-    this.otherRecommendationsText = this.createReportService.getOtherRecommendationsText();
+    this.barricadeCommentText =
+      this.createReportService.getBarricadeCommentText();
+    this.detailedEvaluationAreas =
+      this.createReportService.getDetailedEvaluationAreas();
+    this.detailedEvaluationAreasStructural =
+      this.createReportService.getDetailedEvaluationAreasStructural();
+    this.detailedEvaluationAreasGeotechnical =
+      this.createReportService.getDetailedEvaluationAreasGeotechnical();
+    this.detailedEvaluationAreasOther =
+      this.createReportService.getDetailedEvaluationAreasOther();
+    this.otherRecommendations =
+      this.createReportService.getOtherRecommendations();
+    this.otherRecommendationsText =
+      this.createReportService.getOtherRecommendationsText();
     this.commentsText = this.createReportService.getCommentsText();
     this.attachments = this.createReportService.getAttachments();
 
     // get inspector name
-    this.inspector = (await this.identityCacheService.getNameFromIdAsync(this.inspectorId)).join(" ");
+    this.inspector = (
+      await this.identityCacheService.getNameFromIdAsync(this.inspectorId)
+    ).join(' ');
 
     // get building name
-    console.log(this.buildingId);
-    this.building = this.buildingsService.getBuildingName(this.buildingId, this.location);
+    this.building = this.buildingsService.getBuildingName(
+      this.buildingId,
+      this.location
+    );
+
+    switch (this.estimatedBuildingDamage.toString()) {
+      case '0':
+        this.buildingDamageString = 'None';
+        break;
+      case '1':
+        this.buildingDamageString = '1 - 10 %';
+        break;
+      case '2':
+        this.buildingDamageString = '11 - 30 %';
+        break;
+      case '3':
+        this.buildingDamageString = '31 - 60 %';
+        break;
+      case '4':
+        this.buildingDamageString = '61 - 99 %';
+        break;
+      case '5':
+        this.buildingDamageString = '100 %';
+        break;
+    }
+    const noticeAlert = await this.alertController.create({
+      header: 'Draft report',
+      message:
+        'Please scroll down and review the information below.</br>You may submit the report when you are ready.',
+      buttons: ['OK'],
+    });
+    await noticeAlert.present();
   }
 
   async goBack() {
@@ -132,24 +182,26 @@ export class ConfirmPage implements OnInit {
     const sessionTimedOutAlert = await this.alertController.create({
       header: 'Session Timed Out',
       message: 'Your session has timed out. Please log in again.',
-      buttons: [ "OK" ],
+      buttons: ['OK'],
     });
     const submittingLoader = await this.loadingController.create({
       message: 'Submitting report...',
     });
-    
+
     await submittingLoader.present();
     const result = await this.createReportService.submitFormDataAsync();
     await submittingLoader.dismiss();
     if (!result.success) {
-      if (result.message == "timeout") {
+      if (result.message == 'timeout') {
         await sessionTimedOutAlert.present();
         this.navController.navigateRoot(['/login']);
       }
       const generalErrorAlert = await this.alertController.create({
         header: 'Error',
-        message: 'An error occurred while submitting the report.</br>Please try again.</br></br>Reason:</br>' + result.reason,
-        buttons: [ "OK" ],
+        message:
+          'An error occurred while submitting the report.</br>Please try again.</br></br>Reason:</br>' +
+          result.reason,
+        buttons: ['OK'],
       });
       await generalErrorAlert.present();
       return;
