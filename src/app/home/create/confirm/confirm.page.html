@@ -1,0 +1,57 @@
+<ion-header>
+  <div *ngIf="!submitted; else reportSubmitted">
+    <div class="notice-message">You are creating a new report.</div>
+  </div>
+  <ng-template #reportSubmitted>
+    <div class="success-message">Report Submitted!</div>
+  </ng-template>
+</ion-header>
+<ion-content>
+  <div class="document-title">Rapid Damage Assessment Form</div>
+  <div class="top-bottom">
+    <div class="section-container">
+      <div class="section-title">Inspection</div>
+      <div class="section-item">
+        <span class="section-label">Inspector:</span>
+        <span class="section-data">{{inspector}}</span>
+      </div>
+      <div class="section-item">
+        <span class="section-label">Agency/Campus:</span>
+        <span class="section-data">{{location}}</span>
+      </div>
+      <div class="section-item">
+        <span class="section-label">Building Inspected:</span>
+        <span class="section-data">{{building}}</span>
+      </div>
+      <div class="section-item-v">
+        <span class="section-label">Areas Inspected:</span>
+        <ion-radio-group
+          class="section-data radio-group"
+          value="{{areasInspected}}"
+        >
+          <span
+            ><ion-radio disabled value="exterior"></ion-radio> Exterior
+            Only</span
+          >
+          <span
+            ><ion-radio disabled value="exterior&interior"></ion-radio> Exterior
+            & Interior</span
+          >
+        </ion-radio-group>
+      </div>
+    </div>
+    <div class="button-group">
+      <ion-button disabled="{{submitted}}" class="button" (click)="submitClick()">Submit</ion-button>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start" id="go-back">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

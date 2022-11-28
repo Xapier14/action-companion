@@ -1,22 +1,28 @@
-.notice-message {
+.notice-message, .warning-message, .success-message {
     font-size: 1rem;
     color: #FFF;
     padding: 0.5rem;
     margin: 0;
+    text-align: center;
+}
+
+.notice-message {
     background-color: rgba(197, 105, 0, 0.849);
     text-align: center;
     border-top: 0.1rem solid rgba(116, 62, 0, 0.849);
     border-bottom: 0.1rem solid rgba(116, 62, 0, 0.849);
 }
 
+.warning-message {
+    background-color: rgba(234, 0, 0, 0.765);
+    border-top: 0.1rem solid rgba(125, 0, 0, 0.938);
+    border-bottom: 0.1rem solid rgba(125, 0, 0, 0.938);
+}
+
 .success-message {
-    font-size: 1rem;
-    color: #FFF;
-    padding: 0.5rem;
-    margin: 0;
-    margin-bottom: 0.5rem;
-    background-color: rgba(11, 136, 0, 0.925);
-    text-align: center;
+    background-color: rgba(16, 195, 0, 0.765);
+    border-top: 0.1rem solid rgba(11, 131, 0, 0.765);
+    border-bottom: 0.1rem solid rgba(11, 131, 0, 0.765);
 }
 
 .top-bottom {

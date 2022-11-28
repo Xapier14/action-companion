@@ -58,13 +58,11 @@ export class ReportsPage implements OnInit {
     await this.buildingsService.getCurrentLocation();
     await this.buildingsService.updateBuildingCache();
     this.buildings = ['All', ...this.buildingsService.getBuildingNameList()];
-    console.log(this.buildings);
   }
 
   async ngOnInit() {
     this.reportsService.refreshList();
     const response = await this.reportsService.getListDataAsync();
-    console.log(response);
     this.reports = response.map((item) => {
       return {
         id: item.id,

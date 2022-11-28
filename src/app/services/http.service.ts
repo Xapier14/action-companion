@@ -19,6 +19,14 @@ export class HttpService {
     });
   }
 
+  async postEncodedObjectAsync(route: string, data: object, token?: string) {
+    const urlSearchParams = new URLSearchParams();
+    for (const key in data) {
+      urlSearchParams.append(key, data[key]);
+    }
+    return await this.postEncodedAsync(route, urlSearchParams, token);
+  }
+
   async postEncodedAsync(route: string, data: URLSearchParams, token?: string) {
     const endpoint = environment.apiHost + '/' + route;
     return await fetch(endpoint, {

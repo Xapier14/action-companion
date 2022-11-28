@@ -71,7 +71,7 @@ export class EvaluationPage implements OnInit {
 
       await alert.present();
     }
-
+    this.updateChanges();
     this.navController.navigateForward('/home/create/posting', {
       animated: false,
     });

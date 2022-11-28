@@ -6,6 +6,97 @@
   <div class="top-bottom">
     <div class="section-container">
       <div class="section-title">Further Actions</div>
+      <div class="section-subtitle">
+        Check the boxes below ONLY if further actions are needed.
+      </div>
+      <div class="section-item-v">
+        <div class="section-label">
+          <ion-checkbox
+            #barricadeCommentCheckbox
+            checked="{{barricadeComment}}"
+          ></ion-checkbox>
+          <span>Barricades needed in the following areas:</span>
+        </div>
+        <span class="section-data block-style">
+          <ion-textarea
+            #barricadeCommentTextArea
+            placeholder="Type something here"
+            autoGrow="true"
+            disabled="{{!barricadeCommentCheckbox.checked}}"
+            value="{{barricadeCommentText}}"
+          ></ion-textarea>
+        </span>
+      </div>
+      <div class="section-item-v">
+        <div class="section-label">
+          <ion-checkbox
+            #detailedEvaluationAreasCheckbox
+            checked="{{detailedEvaluationAreas}}"
+          ></ion-checkbox>
+          <span>Detailed evaluation recommended:</span>
+        </div>
+        <div class="section-data checkbox-group block-style">
+          <div>
+            <ion-checkbox
+              #detailedEvaluationAreasStructuralCheckbox
+              disabled="{{!detailedEvaluationAreasCheckbox.checked}}"
+              checked="{{detailedEvaluationAreasStructural}}"
+            ></ion-checkbox>
+            <span>Structural</span>
+          </div>
+          <div>
+            <ion-checkbox
+              #detailedEvaluationAreasGeotechnicalCheckbox
+              disabled="{{!detailedEvaluationAreasCheckbox.checked}}"
+              checked="{{detailedEvaluationAreasGeotechnical}}"
+            ></ion-checkbox>
+            <span>Geotechnical</span>
+          </div>
+          <div>
+            <ion-checkbox
+              #detailedEvaluationAreasOtherCheckbox
+              disabled="{{!detailedEvaluationAreasCheckbox.checked}}"
+              checked="{{detailedEvaluationAreasOther}}"
+            ></ion-checkbox>
+            <span>Other</span>
+          </div>
+        </div>
+      </div>
+      <div class="section-item-v">
+        <div class="section-label">
+          <ion-checkbox
+            #otherRecommendationsCheckbox
+            checked="{{otherRecommendations}}"
+          ></ion-checkbox>
+          <span>Other recommendations:</span>
+        </div>
+        <span class="section-data block-style"
+          >
+          <ion-textarea
+            #otherRecommendationsTextArea
+            placeholder="Type something here"
+            autoGrow="true"
+            disabled="{{!otherRecommendationsCheckbox.checked}}"
+            value="{{otherRecommendationsText}}"
+          ></ion-textarea>
+        </span
+        >
+      </div>
+      <div class="section-item-v">
+        <div class="section-label">
+          <span>Comments:</span>
+        </div>
+        <span class="section-data block-style"
+          >
+          <ion-textarea
+            #commentsTextArea
+            placeholder="Type something here"
+            autoGrow="true"
+            value="{{commentsText}}"
+          ></ion-textarea>
+        </span
+        >
+      </div>
     </div>
     <div class="page-hint">Page 4 of 5</div>
     <div class="button-group">

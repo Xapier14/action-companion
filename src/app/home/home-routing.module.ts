@@ -71,6 +71,14 @@ const routes: Routes = [
             (m) => m.FurtherActionsPageModule
           ),
       },
+      {
+        path: 'attachments',
+        loadChildren: () => import('./create/attachments/attachments.module').then( m => m.AttachmentsPageModule)
+      },
+      {
+        path: 'confirm',
+        loadChildren: () => import('./create/confirm/confirm.module').then( m => m.ConfirmPageModule)
+      },
     ],
   },
 ];

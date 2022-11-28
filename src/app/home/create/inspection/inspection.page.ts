@@ -54,6 +54,8 @@ export class InspectionPage implements OnInit {
     // update view with data from service
     this.buildingSelect.value = this.createReportService.getBuildingId();
     this.areasRadio.value = this.createReportService.getAreasInspected();
+    this.createReportService.setInspectorId(token.id);
+    this.createReportService.setLocation(this.currentLocation);
   }
 
   async goBack() {
