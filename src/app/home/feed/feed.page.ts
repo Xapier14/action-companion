@@ -22,7 +22,7 @@ export class FeedPage implements OnInit {
 
   async refreshStatus() {
     this.buildingStatuses = null;
-    this.updateStatuses();
+    await this.updateStatuses();
   }
 
   async updateStatuses() {
