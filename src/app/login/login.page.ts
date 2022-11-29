@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 
 import { AuthService } from '../services/auth.service';
 import { BuildingsService } from '../services/buildings.service';
+import { PreferenceService } from '../services/preference.service';
 
 @Component({
   selector: 'app-home',
@@ -30,7 +31,8 @@ export class LoginPage {
     private loadingController: LoadingController,
     private authService: AuthService,
     private buildingsService: BuildingsService,
-    private platform: Platform
+    private platform: Platform,
+    private preferences: PreferenceService
   ) {
     this.loginForm = formBuilder.group({
       email: ['', Validators.compose([Validators.required, Validators.email])],
@@ -57,19 +59,22 @@ export class LoginPage {
       message: 'Your previous session was successfully resumed.',
       buttons: ['OK'],
     });
-    // check if token exists
-    if (await this.authService.hasStoredToken()) {
+    // check if resume session is enabled
+    if (
+      (await this.preferences.getAsync('rememberLogin')) === 'true' &&
+      (await this.authService.hasStoredToken())
+    ) {
       this.isButtonDisabled = true;
       loader.present();
-    }
-    // resume session if token exists and redirect to home page
-    const result = await this.authService.checkTokenFromPreferences(true);
-    loader.dismiss();
-    this.isButtonDisabled = false;
-    if (result.sessionState == 'validSession') {
-      alert.present();
-      await this.buildingsService.setCurrentLocationAsync(result.location);
-      this.router.navigate(['/home']);
+      // resume session if token exists and redirect to home page
+      const result = await this.authService.checkTokenFromPreferences(true);
+      loader.dismiss();
+      this.isButtonDisabled = false;
+      if (result.sessionState == 'validSession') {
+        alert.present();
+        await this.buildingsService.setCurrentLocationAsync(result.location);
+        this.router.navigate(['/home']);
+      }
     }
   }
 

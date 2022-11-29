@@ -85,8 +85,6 @@ export class DetailPage implements OnInit {
       await this.identityCacheService.getNameFromIdAsync(report.inspectorId)
     ).join(' ');
     this.reportData = report;
-    console.log('length is: ', this.reportData.detailedEvaluationAreas);
-    console.log(report);
   }
 
   goBack() {

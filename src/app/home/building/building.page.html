@@ -1,0 +1,56 @@
+<ion-content mode="md">
+  <div *ngIf="buildingData != null">
+    <div class="document-title">Building Information</div>
+    <div class="section-container">
+      <div class="section-title">Description</div>
+      <div class="section-item">
+        <span class="section-label">Building Name:</span>
+        <span class="section-data">{{buildingData.name}}</span>
+      </div>
+      <div class="section-item">
+        <span class="section-label">Agency/Campus:</span>
+        <span class="section-data">{{buildingData.location}}</span>
+      </div>
+      <div class="section-item">
+        <span class="section-label">Max Capacity:</span>
+        <span class="section-data">{{buildingData.maxCapacity}}</span>
+      </div>
+      <div class="section-item-v">
+        <span class="section-label">Other Information:</span>
+        <span class="section-data block-style"
+          >{{buildingData.otherInformation}}</span
+        >
+      </div>
+    </div>
+    <div *ngIf="buildingData.lastIncidentId" class="section-container">
+      <div class="section-title">Building Status</div>
+      <div class="section-item">
+        <span class="section-label">Last Inspected:</span>
+        <span class="section-data"
+          >{{buildingData.lastInspection ?? "Never"}}</span
+        >
+      </div>
+      <div *ngIf="buildingData.lastStatus != null" class="section-item">
+        <span class="section-label">Inspection Status:</span>
+        <span class="section-data {{buildingData.lastStatusColor}}"
+          >{{buildingData.lastStatusText}}</span
+        >
+      </div>
+      <div class="button-group" *ngIf="buildingData.lastIncidentId != null">
+        <ion-button (click)="viewDetail(buildingData.lastIncidentId)"
+          >View Last Report</ion-button
+        >
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start" id="go-back">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,31 @@
+.ok-color {
+  color: #59ec46;
+}
+.minor-color {
+  color: #a9ac00;
+}
+.moderate-color {
+  color: #f18241;
+}
+.severe-color {
+  color: #f14141;
+}
+.button-group {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  ion-button {
+    --background: #9c1515;
+    --background-activated: #701919;
+    --background-focused: #9c1515;
+    --background-hover: #9c1515;
+    --border-radius: 1rem;
+    --padding-start: 3rem;
+    --padding-end: 3rem;
+    --padding-top: 0;
+    --padding-bottom: 0;
+  }
+}

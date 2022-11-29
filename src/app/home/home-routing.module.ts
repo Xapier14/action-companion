@@ -31,6 +31,11 @@ const routes: Routes = [
       import('./detail/detail.module').then((m) => m.DetailPageModule),
   },
   {
+    path: 'building',
+    loadChildren: () =>
+      import('./building/building.module').then((m) => m.BuildingPageModule),
+  },
+  {
     path: 'settings',
     loadChildren: () =>
       import('./settings/settings.module').then((m) => m.SettingsPageModule),
@@ -73,11 +78,17 @@ const routes: Routes = [
       },
       {
         path: 'attachments',
-        loadChildren: () => import('./create/attachments/attachments.module').then( m => m.AttachmentsPageModule)
+        loadChildren: () =>
+          import('./create/attachments/attachments.module').then(
+            (m) => m.AttachmentsPageModule
+          ),
       },
       {
         path: 'confirm',
-        loadChildren: () => import('./create/confirm/confirm.module').then( m => m.ConfirmPageModule)
+        loadChildren: () =>
+          import('./create/confirm/confirm.module').then(
+            (m) => m.ConfirmPageModule
+          ),
       },
     ],
   },

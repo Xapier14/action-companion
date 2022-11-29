@@ -28,6 +28,10 @@ export class SettingsPage implements OnInit {
     this.navController.back();
   }
 
+  goto(page) {
+    this.router.navigate(['home', 'settings', page]);
+  }
+
   async handleLogout() {
     const loadingModal = await this.loadingController.create({
       message: 'Logging out...',

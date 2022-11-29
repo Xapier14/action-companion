@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BuildingsService } from 'src/app/services/buildings.service';
 
 @Component({
@@ -10,7 +11,10 @@ export class FeedPage implements OnInit {
   buildingStatuses = null;
   lastUpdated = 'Never';
 
-  constructor(private buildingsService: BuildingsService) {}
+  constructor(
+    private buildingsService: BuildingsService,
+    private router: Router
+  ) {}
 
   async ngOnInit() {
     this.updateStatuses();
@@ -37,8 +41,9 @@ export class FeedPage implements OnInit {
     this.lastUpdated = new Date().toLocaleString();
     this.buildingStatuses = statuses;
   }
-
-  async statusClick(id) {
-    console.log(id);
+  statusClick(building) {
+    this.router.navigate(['/home/building'], {
+      state: { buildingData: building },
+    });
   }
 }
