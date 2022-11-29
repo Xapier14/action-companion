@@ -124,6 +124,8 @@ export class LoginPage {
         loadingModal.dismiss();
         if (result.e == 8) {
           await tooManyAttempts.present();
+        } else if (result.e == 400) {
+          await errorLogin.present();
         } else if (result.e != 0) {
           await wrongCredentails.present();
         } else {

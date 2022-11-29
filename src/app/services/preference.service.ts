@@ -1,11 +1,17 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PreferenceService {
-  constructor() {}
+  constructor() {
+    this.getAsync('rememberLogin').then((val) => {
+      if (val === null) {
+        this.setAsync('rememberLogin', 'true');
+      }
+    });
+  }
 
   async getAsync(key: string): Promise<string> {
     const result = await Preferences.get({ key: key });

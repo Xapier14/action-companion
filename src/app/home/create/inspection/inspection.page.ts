@@ -60,7 +60,7 @@ export class InspectionPage implements OnInit {
 
   async goBack() {
     this.createReportService.clearFormData();
-    this.navController.back();
+    this.navController.navigateRoot('/home', { animated: true });
   }
 
   async goNext() {

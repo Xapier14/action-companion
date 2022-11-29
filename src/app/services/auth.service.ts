@@ -12,25 +12,34 @@ export class AuthService {
     const data = new URLSearchParams();
     data.append('email', email);
     data.append('password', password);
-    const response = await (
-      await this.httpService.postEncodedAsync('login', data)
-    ).json();
-    if (response.e == 0) {
-      const token = response.token;
-      await Preferences.set({ key: 'token', value: token });
+    try {
+      const response = await (
+        await this.httpService.postEncodedAsync('login', data)
+      ).json();
+      if (response.e == 0) {
+        const token = response.token;
+        await Preferences.set({ key: 'token', value: token });
+      }
+      return response;
+    } catch (error) {
+      return { e: 400, msg: 'Network error' };
     }
-    return response;
   }
 
   async checkToken(token: string, clearIfInvalid: boolean = false) {
-    const response = await (
-      await this.httpService.getAsync('check', undefined, token)
-    ).json();
+    try {
+      const response = await (
+        await this.httpService.getAsync('check', undefined, token)
+      ).json();
 
-    if (clearIfInvalid && response?.sessionState != 'validSession')
-      await Preferences.remove({ key: 'token' });
+      if (clearIfInvalid && response?.sessionState != 'validSession')
+        await Preferences.remove({ key: 'token' });
 
-    return response;
+      return response;
+    } catch (error) {
+      if (clearIfInvalid) await Preferences.remove({ key: 'token' });
+      return { sessionState: 'invalidSession' };
+    }
   }
 
   async getTokenAsync() {
