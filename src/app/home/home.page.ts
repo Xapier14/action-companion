@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Preferences } from '@capacitor/preferences';
-import { AlertController, LoadingController, Platform } from '@ionic/angular';
+import {
+  AlertController,
+  LoadingController,
+  NavController,
+  Platform,
+} from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
+import { BuildingsService } from '../services/buildings.service';
 
 @Component({
   selector: 'app-home',
@@ -15,10 +21,12 @@ export class HomePage implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
+    private buildingsService: BuildingsService,
     private platform: Platform
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
+    console.log('home init');
     // disable back button
     this.platform.backButton.subscribeWithPriority(
       9999,
@@ -30,17 +38,15 @@ export class HomePage implements OnInit {
       }
     );
     // check if token exists
-    Preferences.get({ key: 'token' })
-      .then((token) => {
-        this.authService.checkToken(token.value, true).then((result) => {
-          if (result.sessionState != 'validSession') {
-            this.router.navigate(['/login']);
-          }
-        });
-      })
-      .catch(() => {
+    try {
+      const token = await Preferences.get({ key: 'token' });
+      const result = await this.authService.checkToken(token.value, true);
+      if (result.sessionState != 'validSession') {
         this.router.navigate(['/login']);
-      });
+      }
+    } catch (error) {
+      this.router.navigate(['/login']);
+    }
   }
 
   ionViewDidEnter() {

@@ -1,3 +1,84 @@
 <ion-content>
-    <img src="assets/feed-head-bg.jpg"/>
+  <img src="assets/feed-head-bg.jpg" id="head-image" />
+  <div id="main-container">
+    <div id="spacer">
+      <img src="assets/BatStateU_NEU_Logo.png" alt="BatStateU" id="logo" />
+      <p id="red-text">Batangas State University</p>
+      <p>The National Engineering University</p>
+      <div>
+        <p>BatStateU <span id="red-text">ACTION</span> Center</p>
+        <p>Mobile Companion App</p>
+      </div>
+    </div>
+    <div id="feed">
+      <div id="relative-container">
+        <div id="title-bar">
+          <span id="title-text">Dashboard</span>
+          <div id="triangle-endpiece"></div>
+        </div>
+      </div>
+      <div id="toolbar">
+        <span>Last Updated:<br />{{lastUpdated}}</span>
+        <ion-button
+          disabled="{{buildingStatuses == null}}"
+          (click)="refreshStatus()"
+        >
+          <ion-icon name="refresh"></ion-icon>
+        </ion-button>
+      </div>
+      <div *ngIf="buildingStatuses == null; else hasData" id="spinner-align">
+        <div id="spinner">
+          <ion-spinner name="crescent"></ion-spinner>
+          <span>Loading...</span>
+        </div>
+      </div>
+      <ng-template #hasData>
+        <div id="cards-list">
+          <ion-card
+            *ngFor="let building of buildingStatuses"
+            mode="md"
+            (click)="statusClick(building.id)"
+          >
+            <ion-card-header>
+              <div class="card-header-container">
+                <div>
+                  <ion-card-title>{{building.name}}</ion-card-title>
+                  <ion-card-subtitle>
+                    Last Inspected: {{building.lastInspection}}
+                  </ion-card-subtitle>
+                </div>
+                <div [ngSwitch]="building.lastStatus" class="status-container">
+                  <ion-icon
+                    *ngSwitchCase="0"
+                    name="ellipse"
+                    class="ok-color"
+                  ></ion-icon>
+                  <ion-icon
+                    *ngSwitchCase="1"
+                    name="ellipse"
+                    class="minor-color"
+                  ></ion-icon>
+                  <ion-icon
+                    *ngSwitchCase="2"
+                    name="ellipse"
+                    class="moderate-color"
+                  ></ion-icon>
+                  <ion-icon
+                    *ngSwitchCase="3"
+                    name="ellipse"
+                    class="severe-color"
+                  ></ion-icon>
+                  <ion-icon
+                    *ngSwitchDefault
+                    name="help-circle"
+                    color="medium"
+                  ></ion-icon>
+                </div>
+              </div>
+            </ion-card-header>
+          </ion-card>
+        </div>
+      </ng-template>
+    </div>
+  </div>
 </ion-content>

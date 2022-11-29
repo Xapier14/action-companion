@@ -39,7 +39,7 @@ export class InspectionPage implements OnInit {
     this.currentLocation = token.location;
 
     // get available buildings
-    await this.buildingsService.updateBuildingCache(this.currentLocation);
+    await this.buildingsService.updateBuildingCacheAsync(this.currentLocation);
     this.buildings = [];
     this.buildingsService
       .getBuildingNameList(this.currentLocation)

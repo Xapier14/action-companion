@@ -75,7 +75,7 @@ export class DetailPage implements OnInit {
       }
     })();
     if (report.building === 'Unknown') {
-      await this.buildingsService.updateBuildingCache(report.location);
+      await this.buildingsService.updateBuildingCacheAsync(report.location);
       report.building = this.buildingsService.getBuildingName(
         report.buildingId,
         report.location
@@ -85,7 +85,7 @@ export class DetailPage implements OnInit {
       await this.identityCacheService.getNameFromIdAsync(report.inspectorId)
     ).join(' ');
     this.reportData = report;
-    console.log("length is: ", this.reportData.detailedEvaluationAreas);
+    console.log('length is: ', this.reportData.detailedEvaluationAreas);
     console.log(report);
   }
 

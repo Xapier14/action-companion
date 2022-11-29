@@ -65,6 +65,7 @@ export class HttpService {
   }
 
   private queryString(query: object) {
+    if (!query) return '';
     return Object.keys(query)
       .map((key) => key + '=' + query[key])
       .join('&');

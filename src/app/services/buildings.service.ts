@@ -16,7 +16,7 @@ export class BuildingsService {
     private httpService: HttpService,
     private authService: AuthService
   ) {}
-  async getCurrentLocation(): Promise<string> {
+  async getCurrentLocationAsync(): Promise<string> {
     if (this.currentLocation == '') {
       const token = await this.authService.checkTokenFromPreferences();
       if (!token || token.sessionState != 'validSession') return '';
@@ -24,11 +24,11 @@ export class BuildingsService {
     }
     return this.currentLocation;
   }
-  async setCurrentLocation(location: string) {
+  async setCurrentLocationAsync(location: string) {
     this.currentLocation = location;
-    await this.updateBuildingCache();
+    await this.updateBuildingCacheAsync();
   }
-  async updateBuildingCache(location?: string) {
+  async updateBuildingCacheAsync(location?: string) {
     const targetLocation = location ?? this.currentLocation;
     if (targetLocation == '') return;
     console.log('Updating for location: ' + targetLocation);
@@ -67,6 +67,13 @@ export class BuildingsService {
     return [];
   }
 
+  getBuildingIdList(location?: string): string[] {
+    const targetLocation = location ?? this.currentLocation;
+    if (this.buildingMap.has(targetLocation))
+      return Array.from(this.buildingMap.get(targetLocation).values());
+    return [];
+  }
+
   getBuildingId(name: string, location?: string): string {
     const targetLocation = location ?? this.currentLocation;
     return this.buildingMap.get(targetLocation).get(name);
@@ -80,5 +87,22 @@ export class BuildingsService {
       (key) => this.buildingMap.get(targetLocation).get(key) === id
     );
     return name;
+  }
+
+  async getBuildingInfoAsync(buildingId: string) {
+    const token = await this.authService.getTokenAsync();
+    const response = await (
+      await this.httpService.getAsyncParams(
+        `buildings/${buildingId}`,
+        null,
+        token
+      )
+    ).json();
+    if (response.e == 0) {
+      return response.building;
+    } else {
+      console.log('Error getting building info.');
+      return null;
+    }
   }
 }

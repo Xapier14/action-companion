@@ -68,7 +68,7 @@ export class LoginPage {
     this.isButtonDisabled = false;
     if (result.sessionState == 'validSession') {
       alert.present();
-      await this.buildingsService.setCurrentLocation(result.location);
+      await this.buildingsService.setCurrentLocationAsync(result.location);
       this.router.navigate(['/home']);
     }
   }
@@ -123,7 +123,7 @@ export class LoginPage {
           await wrongCredentails.present();
         } else {
           this.loginForm.setValue({ email: '', password: '' });
-          await this.buildingsService.setCurrentLocation(result.location);
+          await this.buildingsService.setCurrentLocationAsync(result.location);
           this.router.navigate(['/home']);
         }
       })

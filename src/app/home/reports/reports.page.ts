@@ -29,7 +29,7 @@ export class ReportsPage implements OnInit {
   numberToSeverity(num) {
     switch (num) {
       case 0:
-        return 'None';
+        return 'OK';
       case 1:
         return 'Minor';
       case 2:
@@ -55,8 +55,8 @@ export class ReportsPage implements OnInit {
   }
 
   async ionViewDidEnter() {
-    await this.buildingsService.getCurrentLocation();
-    await this.buildingsService.updateBuildingCache();
+    await this.buildingsService.getCurrentLocationAsync();
+    await this.buildingsService.updateBuildingCacheAsync();
     this.buildings = ['All', ...this.buildingsService.getBuildingNameList()];
   }
 
