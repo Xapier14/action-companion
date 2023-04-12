@@ -394,6 +394,7 @@ export class CreateReportService {
       detailedEvaluationAreas: detailedEvaluationAreasData,
       otherRecommendations: this.otherRecommendationsText,
       furtherComments: this.commentsText,
+      attachments: this.attachments,
     };
     const response = await this.httpService.postEncodedObjectAsync(
       'incidents/create',
