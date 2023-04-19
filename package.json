@@ -34,6 +34,7 @@
     "@ionic/storage-angular": "^3.0.6",
     "cordova-plugin-app-version": "^0.1.14",
     "ionicons": "^6.0.3",
+    "recaptcha-v3": "^1.10.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"

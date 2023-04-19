@@ -1,4 +1,11 @@
 <ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" id="go-back">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
   <div class="notice-message">You are creating a new report.</div>
 </ion-header>
 <ion-content>
@@ -23,7 +30,11 @@
         <div class="section-data-v">
           <div class="section-data-item">
             <span>Collapsed Structure</span>
-            <ion-radio-group #collapsedRadio class="radio-group" value="{{collapsed}}">
+            <ion-radio-group
+              #collapsedRadio
+              class="radio-group"
+              value="{{collapsed}}"
+            >
               <ion-radio value="0"></ion-radio>
               <ion-radio value="1"></ion-radio>
               <ion-radio value="2"></ion-radio>
@@ -34,7 +45,11 @@
         <div class="section-data-v">
           <div class="section-data-item">
             <span>Building/Story Leaning or Out of Plumb</span>
-            <ion-radio-group #leaningRadio class="radio-group" value="{{leaning}}">
+            <ion-radio-group
+              #leaningRadio
+              class="radio-group"
+              value="{{leaning}}"
+            >
               <ion-radio value="0"></ion-radio>
               <ion-radio value="1"></ion-radio>
               <ion-radio value="2"></ion-radio>
@@ -45,7 +60,11 @@
         <div class="section-data-v">
           <div class="section-data-item">
             <span>Damage to Primary Structural Members, Racking of Walls</span>
-            <ion-radio-group #structuralRadio class="radio-group" value="{{structural}}">
+            <ion-radio-group
+              #structuralRadio
+              class="radio-group"
+              value="{{structural}}"
+            >
               <ion-radio value="0"></ion-radio>
               <ion-radio value="1"></ion-radio>
               <ion-radio value="2"></ion-radio>
@@ -113,10 +132,7 @@
           </div>
           <div class="section-data-item-v">
             <span>Proximity Risk Details:</span>
-            <span
-              style="width: 95%; text-transform: none;"
-              class="inline-style"
-            >
+            <span style="width: 95%; text-transform: none" class="inline-style">
               <ion-textarea
                 #proximityTextArea
                 placeholder="Type something here"
@@ -170,7 +186,7 @@
   </div>
 </ion-content>
 
-<ion-footer>
+<!-- <ion-footer>
   <ion-toolbar>
     <ion-buttons slot="start" id="go-back">
       <ion-button (click)="goBack()">
@@ -178,4 +194,4 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-</ion-footer>
+</ion-footer> -->

@@ -1,4 +1,11 @@
 <ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" id="go-back">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
   <div class="notice-message">You are creating a new report.</div>
 </ion-header>
 <ion-content>
@@ -22,11 +29,11 @@
 
 <ion-footer>
   <div class="warning-message">Attachments are not yet implemented.</div>
-  <ion-toolbar>
+  <!-- <ion-toolbar>
     <ion-buttons slot="start" id="go-back">
       <ion-button (click)="goBack()">
         <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-  </ion-toolbar>
+  </ion-toolbar> -->
 </ion-footer>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController, Platform } from '@ionic/angular';
@@ -8,13 +8,14 @@ import { environment } from 'src/environments/environment';
 import { AuthService } from '../services/auth.service';
 import { BuildingsService } from '../services/buildings.service';
 import { PreferenceService } from '../services/preference.service';
+import { RecaptchaService } from '../services/recaptcha.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'login.page.html',
   styleUrls: ['login.page.scss'],
 })
-export class LoginPage {
+export class LoginPage implements OnInit, OnDestroy {
   private loginEndpoint = environment.apiHost + '/login';
   private checkEndpoint = environment.apiHost + '/check';
 
@@ -32,8 +33,10 @@ export class LoginPage {
     private authService: AuthService,
     private buildingsService: BuildingsService,
     private platform: Platform,
-    private preferences: PreferenceService
+    private preferences: PreferenceService,
+    private recaptcha: RecaptchaService
   ) {
+    recaptcha.load();
     this.loginForm = formBuilder.group({
       email: ['', Validators.compose([Validators.required, Validators.email])],
       password: ['', Validators.required],
@@ -41,6 +44,7 @@ export class LoginPage {
   }
 
   async ngOnInit() {
+    this.recaptcha.showBadge();
     // disable back button
     this.platform.backButton.subscribeWithPriority(
       9999,
@@ -78,12 +82,18 @@ export class LoginPage {
     }
   }
 
+  async ngOnDestroy() {
+    this.recaptcha.hideBadge();
+  }
+
   ionViewDidEnter() {
     this.isCurrentView = true;
+    this.recaptcha.showBadge();
   }
 
   ionViewWillLeave() {
     this.isCurrentView = false;
+    this.recaptcha.hideBadge();
   }
 
   async submitLogin() {
@@ -117,8 +127,9 @@ export class LoginPage {
 
     // send login request
     loadingModal.present();
+    const token = await this.recaptcha.getToken('login');
     this.authService
-      .tryLogin(email, password)
+      .tryLogin(email, password, token)
       .then(async (result) => {
         this.isButtonDisabled = false;
         loadingModal.dismiss();

@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   apiHost: 'http://localhost:3000/api/v1',
+  recaptchaKey: '6LdzY5olAAAAAEeQt85YUNJIa-OcjTqm05Yw7eiJ',
   // apiHost: "https://action-api.azurewebsites.net/api/v1",
 };
 

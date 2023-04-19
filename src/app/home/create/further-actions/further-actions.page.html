@@ -1,4 +1,11 @@
 <ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" id="go-back">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
   <div class="notice-message">You are creating a new report.</div>
 </ion-header>
 <ion-content>
@@ -70,8 +77,7 @@
           ></ion-checkbox>
           <span>Other recommendations:</span>
         </div>
-        <span class="section-data block-style"
-          >
+        <span class="section-data block-style">
           <ion-textarea
             #otherRecommendationsTextArea
             placeholder="Type something here"
@@ -79,23 +85,20 @@
             disabled="{{!otherRecommendationsCheckbox.checked}}"
             value="{{otherRecommendationsText}}"
           ></ion-textarea>
-        </span
-        >
+        </span>
       </div>
       <div class="section-item-v">
         <div class="section-label">
           <span>Comments:</span>
         </div>
-        <span class="section-data block-style"
-          >
+        <span class="section-data block-style">
           <ion-textarea
             #commentsTextArea
             placeholder="Type something here"
             autoGrow="true"
             value="{{commentsText}}"
           ></ion-textarea>
-        </span
-        >
+        </span>
       </div>
     </div>
     <div class="page-hint">Page 4 of 5</div>
@@ -105,7 +108,7 @@
   </div>
 </ion-content>
 
-<ion-footer>
+<!-- <ion-footer>
   <ion-toolbar>
     <ion-buttons slot="start" id="go-back">
       <ion-button (click)="goBack()">
@@ -113,4 +116,4 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-</ion-footer>
+</ion-footer> -->

@@ -8,10 +8,11 @@ import { Preferences } from '@capacitor/preferences';
 export class AuthService {
   constructor(private httpService: HttpService) {}
 
-  async tryLogin(email: string, password: string) {
+  async tryLogin(email: string, password: string, recaptcha: string) {
     const data = new URLSearchParams();
     data.append('email', email);
     data.append('password', password);
+    data.append('g-recaptcha-token', recaptcha);
     try {
       const response = await (
         await this.httpService.postEncodedAsync('login', data)
