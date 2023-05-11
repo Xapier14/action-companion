@@ -114,6 +114,11 @@ export class LoginPage implements OnInit, OnDestroy {
       message: 'Wrong email or password. Please try again.',
       buttons: ['OK'],
     });
+    const accountLocked = await this.alertController.create({
+      header: 'Error',
+      message: 'Your account is locked. Please contact an administrator.',
+      buttons: ['OK'],
+    });
     const tooManyAttempts = await this.alertController.create({
       header: 'Error',
       message: 'Too many requests. Please try again later.',
@@ -137,6 +142,8 @@ export class LoginPage implements OnInit, OnDestroy {
           await tooManyAttempts.present();
         } else if (result.e == 400) {
           await errorLogin.present();
+        } else if (result.e == 19) {
+          await accountLocked.present();
         } else if (result.e != 0) {
           await wrongCredentails.present();
         } else {
