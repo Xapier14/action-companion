@@ -346,6 +346,15 @@
         <div *ngIf="reportData.attachments.length == 0" class="block-style">
           No attachments found.
         </div>
+        <div *ngFor="let attachment of reportData.attachments">
+          <ion-card (click)="openAttachment(attachment.id)">
+            <img [src]="attachment.thumbnailUrl" alt="" />
+            <ion-card-header>
+              <ion-card-title>{{attachment.id}}</ion-card-title>
+              <ion-card-subtitle>{{attachment.mediaType}}</ion-card-subtitle>
+            </ion-card-header>
+          </ion-card>
+        </div>
       </div>
     </div>
   </div>

@@ -39,6 +39,17 @@ export class HttpService {
     });
   }
 
+  async postFormDataAsync(route: string, data: FormData, token?: string) {
+    const endpoint = environment.apiHost + '/' + route;
+    return await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        Authorization: token,
+      },
+      body: data,
+    });
+  }
+
   async getAsync(route: string, data?: URLSearchParams, token?: string) {
     const endpoint =
       environment.apiHost + '/' + route + (data ? `?${data}` : '');

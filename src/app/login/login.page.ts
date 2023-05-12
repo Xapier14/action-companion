@@ -141,6 +141,9 @@ export class LoginPage implements OnInit, OnDestroy {
         if (result.e == 8) {
           await tooManyAttempts.present();
         } else if (result.e == 400) {
+          console.log('true error!');
+          console.log(result);
+          errorLogin.message = `There was an error logging in. Please try again.`;
           await errorLogin.present();
         } else if (result.e == 19) {
           await accountLocked.present();
@@ -156,7 +159,9 @@ export class LoginPage implements OnInit, OnDestroy {
         loadingModal.dismiss();
         // general error
         this.isButtonDisabled = false;
+        errorLogin.message = `A unknown error occured while trying to log in. Please contact an administrator.`;
         await errorLogin.present();
+        console.log('general error!');
         console.log(error);
       });
   }

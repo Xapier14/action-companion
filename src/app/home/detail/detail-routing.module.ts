@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: DetailPage,
+  },  {
+    path: 'attachment',
+    loadChildren: () => import('./attachment/attachment.module').then( m => m.AttachmentPageModule)
   },
+
 ];
 
 @NgModule({

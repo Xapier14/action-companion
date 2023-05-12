@@ -1,0 +1,6 @@
+img,
+video {
+  width: 100%;
+  height: calc(100% - 4px);
+  object-fit: contain;
+}

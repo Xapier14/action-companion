@@ -14,10 +14,18 @@
     <div class="section-container">
       <div class="section-title">Attachments</div>
       <div class="attachment-control">
-        <div class="attachment-list">
-          <div class="attachment-item"></div>
+        <div *ngIf="attachmentUrlMap != undefined" class="attachment-list">
+          <ion-card *ngFor="let attachment of attachments">
+            <ion-card-header>
+              <ion-card-title>{{ attachment }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <img [src]="attachmentUrlMap[attachment]" alt="" />
+            </ion-card-content>
+          </ion-card>
         </div>
-        <ion-button>Upload Attachment</ion-button>
+        <ion-button (click)="addAttachmentImage()">Upload Image</ion-button>
+        <ion-button disabled>Upload Video</ion-button>
       </div>
     </div>
     <div class="page-hint">Page 5 of 5</div>
@@ -26,14 +34,3 @@
     </div>
   </div>
 </ion-content>
-
-<ion-footer>
-  <div class="warning-message">Attachments are not yet implemented.</div>
-  <!-- <ion-toolbar>
-    <ion-buttons slot="start" id="go-back">
-      <ion-button (click)="goBack()">
-        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar> -->
-</ion-footer>

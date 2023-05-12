@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" id="go-back">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <img
+    *ngIf="attachment?.contentType?.split('/')[0] == 'image'"
+    [src]="attachmentUrl"
+    alt=""
+  />
+  <video
+    controls
+    *ngIf="attachment?.contentType?.split('/')[0] == 'video'"
+    [src]="attachmentUrl"
+  ></video>
+</ion-content>

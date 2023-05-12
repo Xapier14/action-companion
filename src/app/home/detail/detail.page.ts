@@ -5,6 +5,7 @@ import {
   LoadingController,
   NavController,
 } from '@ionic/angular';
+import { AttachmentsService } from 'src/app/services/attachments.service';
 import { BuildingsService } from 'src/app/services/buildings.service';
 import { IdentityCacheService } from 'src/app/services/identity-cache.service';
 import { ReportsService } from 'src/app/services/reports.service';
@@ -25,7 +26,8 @@ export class DetailPage implements OnInit {
     private loadingController: LoadingController,
     private reportsService: ReportsService,
     private buildingsService: BuildingsService,
-    private identityCacheService: IdentityCacheService
+    private identityCacheService: IdentityCacheService,
+    private attachmentsService: AttachmentsService
   ) {}
 
   async ngOnInit() {
@@ -46,8 +48,8 @@ export class DetailPage implements OnInit {
     // populate fields
     loadingModal.present();
     let report = await this.reportsService.getReportAsync(this.id);
-    loadingModal.dismiss();
     if (report === undefined) {
+      loadingModal.dismiss();
       this.navController.back();
       errorAlert.present();
       return;
@@ -84,6 +86,27 @@ export class DetailPage implements OnInit {
     report.inspector = (
       await this.identityCacheService.getNameFromIdAsync(report.inspectorId)
     ).join(' ');
+    report.attachments = await Promise.all(
+      report.attachments.map(async (attachment) => {
+        const full = await this.attachmentsService.GetAttachmentAsync(
+          attachment,
+          false
+        );
+        const thumbnail = await this.attachmentsService.GetAttachmentAsync(
+          attachment,
+          true
+        );
+        return {
+          id: attachment,
+          thumbnail: thumbnail,
+          thumbnailUrl: await this.attachmentsService.GetAttachmentUrlAsync(
+            thumbnail
+          ),
+          mediaType: full.contentType.split('/')[0],
+        };
+      })
+    );
+    loadingModal.dismiss();
     this.reportData = report;
   }
 
@@ -94,5 +117,9 @@ export class DetailPage implements OnInit {
   async refreshData(event) {
     await this.ngOnInit();
     event.target.complete();
+  }
+
+  async openAttachment(id) {
+    this.navController.navigateForward(`home/detail/attachment?id=${id}`);
   }
 }
