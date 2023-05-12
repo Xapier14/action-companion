@@ -12,9 +12,9 @@
   - [x] Detail View
   - [x] Filtering
   - [x] Creation
-- [ ] Attachments
-  - [ ] Upload
-  - [ ] View
+- [x] Attachments
+  - [x] Upload
+  - [x] View
 - [x] Local Feed
 - [x] Mini Dashboard
-  - [ ] Building detail view
+  - [x] Building detail view
