@@ -298,8 +298,22 @@
       </div>
     </div>
     <!-- Attachments -->
-    <div class="section-container">
+    <div class="section-container" id="attachment-section">
       <div class="section-title">Attachments</div>
+      <div *ngIf="attachmentUrlMap != undefined" class="attachment-list">
+        <ion-card *ngFor="let attachment of attachments">
+          <ion-card-header>
+            <ion-card-title>{{ attachment }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <img [src]="attachmentUrlMap[attachment]" alt="" />
+          </ion-card-content>
+        </ion-card>
+      </div>
+
+      <div *ngIf="attachments.length == 0" class="block-style">
+        No attachments found.
+      </div>
     </div>
     <div class="button-group">
       <ion-button

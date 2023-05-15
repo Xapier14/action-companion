@@ -1,121 +1,126 @@
-.notice-message, .warning-message, .success-message {
-    font-size: 1rem;
-    color: #FFF;
-    padding: 0.5rem;
-    margin: 0;
-    text-align: center;
+.notice-message,
+.warning-message,
+.success-message {
+  font-size: 1rem;
+  color: #fff;
+  padding: 0.5rem;
+  margin: 0;
+  text-align: center;
 }
 
 .notice-message {
-    background-color: rgba(197, 105, 0, 0.849);
-    text-align: center;
-    border-top: 0.1rem solid rgba(116, 62, 0, 0.849);
-    border-bottom: 0.1rem solid rgba(116, 62, 0, 0.849);
+  background-color: rgba(197, 105, 0, 0.849);
+  text-align: center;
+  border-top: 0.1rem solid rgba(116, 62, 0, 0.849);
+  border-bottom: 0.1rem solid rgba(116, 62, 0, 0.849);
 }
 
 .warning-message {
-    background-color: rgba(234, 0, 0, 0.765);
-    border-top: 0.1rem solid rgba(125, 0, 0, 0.938);
-    border-bottom: 0.1rem solid rgba(125, 0, 0, 0.938);
+  background-color: rgba(234, 0, 0, 0.765);
+  border-top: 0.1rem solid rgba(125, 0, 0, 0.938);
+  border-bottom: 0.1rem solid rgba(125, 0, 0, 0.938);
 }
 
 .success-message {
-    background-color: rgba(16, 195, 0, 0.765);
-    border-top: 0.1rem solid rgba(11, 131, 0, 0.765);
-    border-bottom: 0.1rem solid rgba(11, 131, 0, 0.765);
+  background-color: rgba(16, 195, 0, 0.765);
+  border-top: 0.1rem solid rgba(11, 131, 0, 0.765);
+  border-bottom: 0.1rem solid rgba(11, 131, 0, 0.765);
 }
 
 .top-bottom {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .full-space > * {
-    width: 100%;
+  width: 100%;
 }
 
 .button-group {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin-bottom: 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 1rem;
 }
 
 .page-hint {
-    display: block;
-    width: 100%;
-    text-align: right;
-    padding-right: 2rem;
-    padding-bottom: 1rem;
-    color: #333A;
-    font-style: italic;
+  display: block;
+  width: 100%;
+  text-align: right;
+  padding-right: 2rem;
+  padding-bottom: 1rem;
+  color: #333a;
+  font-style: italic;
 }
 
 .nav-toolbar {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    margin-bottom: 0.5rem;
-    background: none;
-    padding-bottom: 1rem;
-    width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+  background: none;
+  padding-bottom: 1rem;
+  width: 100%;
 }
 
 .align-right {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .align-left {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .button-group > ion-button {
-    --background: #9c1515;
-    --background-activated: #701919;
-    --background-focused: #9c1515;
-    --background-hover: #9c1515;
-    --border-radius: 1rem;
-    --padding-start: 3rem;
-    --padding-end: 3rem;
-    --padding-top: 0;
-    --padding-bottom: 0;
+  --background: #9c1515;
+  --background-activated: #701919;
+  --background-focused: #9c1515;
+  --background-hover: #9c1515;
+  --border-radius: 1rem;
+  --padding-start: 3rem;
+  --padding-end: 3rem;
+  --padding-top: 0;
+  --padding-bottom: 0;
 }
 
 .block-style > ion-textarea {
-    --padding-top: 0;
-    --padding-start: 0.5rem;
-    --padding-end: 0.5rem;
-    --padding-bottom: 0.5rem;
+  --padding-top: 0;
+  --padding-start: 0.5rem;
+  --padding-end: 0.5rem;
+  --padding-bottom: 0.5rem;
 }
 
 .inline-style > ion-textarea {
-    --padding-top: 0;
-    --padding-start: 0;
-    --padding-end: 0;
-    --padding-bottom: 0;
+  --padding-top: 0;
+  --padding-start: 0;
+  --padding-end: 0;
+  --padding-bottom: 0;
 }
 
+#attachment-section {
+  padding-bottom: 1rem;
+}
 
 // dark mode
 @media (prefers-color-scheme: dark) {
-    .page-hint {
-        color: #BBBA;
-    }
+  .page-hint {
+    color: #bbba;
+  }
 
-    .button-group > ion-button {
-        --background: #720909;
-        --background-activated: #580404;
-        --background-focused: #720909;
-        --background-hover: #720909;
-    }
+  .button-group > ion-button {
+    --background: #720909;
+    --background-activated: #580404;
+    --background-focused: #720909;
+    --background-hover: #720909;
+  }
 }

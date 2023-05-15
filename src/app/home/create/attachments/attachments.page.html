@@ -13,17 +13,17 @@
   <div class="top-bottom">
     <div class="section-container">
       <div class="section-title">Attachments</div>
+      <div *ngIf="attachmentUrlMap != undefined" class="attachment-list">
+        <ion-card *ngFor="let attachment of attachments">
+          <ion-card-header>
+            <ion-card-title>{{ attachment }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <img [src]="attachmentUrlMap[attachment]" alt="" />
+          </ion-card-content>
+        </ion-card>
+      </div>
       <div class="attachment-control">
-        <div *ngIf="attachmentUrlMap != undefined" class="attachment-list">
-          <ion-card *ngFor="let attachment of attachments">
-            <ion-card-header>
-              <ion-card-title>{{ attachment }}</ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-              <img [src]="attachmentUrlMap[attachment]" alt="" />
-            </ion-card-content>
-          </ion-card>
-        </div>
         <ion-button (click)="addAttachmentImage()">Upload Image</ion-button>
         <ion-button disabled>Upload Video</ion-button>
       </div>

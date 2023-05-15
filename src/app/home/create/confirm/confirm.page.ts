@@ -8,6 +8,7 @@ import { CreateReportService } from 'src/app/services/create-report.service';
 import { BuildingsService } from 'src/app/services/buildings.service';
 import { IdentityCacheService } from 'src/app/services/identity-cache.service';
 import { Router } from '@angular/router';
+import { AttachmentsService } from 'src/app/services/attachments.service';
 
 @Component({
   selector: 'app-confirm',
@@ -64,16 +65,30 @@ export class ConfirmPage implements OnInit {
 
   // attachments
   attachments: string[] = [];
+  attachmentUrlMap: any | undefined;
 
   constructor(
     private createReportService: CreateReportService,
     private buildingsService: BuildingsService,
     private identityCacheService: IdentityCacheService,
+    private attachmentsService: AttachmentsService,
     private navController: NavController,
     private router: Router,
     private alertController: AlertController,
     private loadingController: LoadingController
   ) {}
+
+  async createMap() {
+    const newMap = {};
+    for (const attachment of this.attachments) {
+      const url = await this.attachmentsService.GetAttachmentUrlAsyncById(
+        attachment,
+        true
+      );
+      newMap[attachment] = url;
+    }
+    this.attachmentUrlMap = newMap;
+  }
 
   async ngOnInit() {
     if (this.createReportService.getInspectorId() == undefined) {
@@ -129,6 +144,7 @@ export class ConfirmPage implements OnInit {
       this.createReportService.getOtherRecommendationsText();
     this.commentsText = this.createReportService.getCommentsText();
     this.attachments = this.createReportService.getAttachments();
+    await this.createMap();
 
     // get inspector name
     this.inspector = (
