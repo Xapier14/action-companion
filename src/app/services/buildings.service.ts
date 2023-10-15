@@ -35,15 +35,13 @@ export class BuildingsService {
     if (!this.buildingMap.has(targetLocation))
       this.buildingMap.set(targetLocation, new Map<string, string>());
     const token = await this.authService.getTokenAsync();
-    const response = await (
-      await this.httpService.getAsyncParams(
-        'buildings/list',
-        {
-          location: targetLocation,
-        },
-        token
-      )
-    ).json();
+    const response = await this.httpService.getAsyncParams(
+      'buildings/list',
+      {
+        location: targetLocation,
+      },
+      token
+    );
     if (response.e == 0) {
       const buildings = response.buildings;
       this.buildingMap.clear();
@@ -91,13 +89,11 @@ export class BuildingsService {
 
   async getBuildingInfoAsync(buildingId: string) {
     const token = await this.authService.getTokenAsync();
-    const response = await (
-      await this.httpService.getAsyncParams(
-        `buildings/${buildingId}`,
-        null,
-        token
-      )
-    ).json();
+    const response = await this.httpService.getAsyncParams(
+      `buildings/${buildingId}`,
+      null,
+      token
+    );
     if (response.e == 0) {
       return response.building;
     } else {

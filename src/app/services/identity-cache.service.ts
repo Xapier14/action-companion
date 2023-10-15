@@ -19,9 +19,11 @@ export class IdentityCacheService {
     }
     try {
       const token = await this.authService.getTokenAsync();
-      const response = await (
-        await this.httpService.getAsyncParams('misc/resolve', { id: id }, token)
-      ).json();
+      const response = await this.httpService.getAsyncParams(
+        'misc/resolve',
+        { id: id },
+        token
+      );
       if (response.e == 0) {
         const data = [
           response.user.firstName,

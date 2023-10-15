@@ -14,24 +14,25 @@ export class AuthService {
     data.append('password', password);
     data.append('g-recaptcha-token', recaptcha);
     try {
-      const response = await (
-        await this.httpService.postEncodedAsync('login', data)
-      ).json();
+      const response = await this.httpService.postEncodedAsync('login', data);
+      console.log(response);
       if (response.e == 0) {
         const token = response.token;
         await Preferences.set({ key: 'token', value: token });
       }
       return response;
     } catch (error) {
-      return { e: 400, msg: 'Network error' };
+      return { e: 400, status: 'Network error' };
     }
   }
 
   async checkToken(token: string, clearIfInvalid: boolean = false) {
     try {
-      const response = await (
-        await this.httpService.getAsync('check', undefined, token)
-      ).json();
+      const response = await this.httpService.getAsync(
+        'check',
+        undefined,
+        token
+      );
 
       if (clearIfInvalid && response?.sessionState != 'validSession')
         await Preferences.remove({ key: 'token' });

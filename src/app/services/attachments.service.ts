@@ -33,9 +33,11 @@ export class AttachmentsService {
       const token = await this.authService.getTokenAsync();
       if (!token) throw new Error('No token available.');
       try {
-        const response = await (
-          await this.httpService.getAsync(requestUrl, requestData, token)
-        ).json();
+        const response = await this.httpService.getAsync(
+          requestUrl,
+          requestData,
+          token
+        );
 
         const attachment = {
           fileName: response.fileName,
@@ -81,9 +83,11 @@ export class AttachmentsService {
     const requestUrl = `attachments/from/${reportId}`;
     const token = await this.authService.getTokenAsync();
     if (!token) throw new Error('No token available.');
-    const response = await (
-      await this.httpService.getAsync(requestUrl, undefined, token)
-    ).json();
+    const response = await this.httpService.getAsync(
+      requestUrl,
+      undefined,
+      token
+    );
     return response.filter(
       (attachment: string) => attachment !== null && attachment != ''
     );
@@ -95,9 +99,11 @@ export class AttachmentsService {
     if (!token) throw new Error('No token available.');
     const formData = new FormData();
     formData.append('file', blob, fileName);
-    const response = await (
-      await this.httpService.postFormDataAsync(requestUrl, formData, token)
-    ).json();
+    const response = await this.httpService.postFormDataAsync(
+      requestUrl,
+      formData,
+      token
+    );
     return response;
   }
 }

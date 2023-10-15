@@ -48,9 +48,11 @@ export class ReportsService {
     for (let key in this.filter) {
       params.append(key, this.filter[key]);
     }
-    const response = await (
-      await this.httpService.getAsync('incidents/', params, token.token)
-    ).json();
+    const response = await this.httpService.getAsync(
+      'incidents/',
+      params,
+      token.token
+    );
     if (response.e == 0) {
       this.currentPage++;
       if (this.currentPage > response.maxPageOffset) this.isEndOfList = true;
@@ -67,9 +69,11 @@ export class ReportsService {
   async getReportAsync(id: string) {
     const token = await this.authService.checkTokenFromPreferences();
     if (!token || token.sessionState != 'validSession') return undefined;
-    const response = await (
-      await this.httpService.getAsync(`incidents/${id}`, undefined, token.token)
-    ).json();
+    const response = await this.httpService.getAsync(
+      `incidents/${id}`,
+      undefined,
+      token.token
+    );
     if (response.e != 0) return undefined;
     return response.incident;
   }

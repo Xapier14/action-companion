@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController, Platform } from '@ionic/angular';
 import { Preferences } from '@capacitor/preferences';
+import { Toast } from '@capacitor/toast';
 import { environment } from 'src/environments/environment';
 
 import { AuthService } from '../services/auth.service';
@@ -16,11 +17,7 @@ import { RecaptchaService } from '../services/recaptcha.service';
   styleUrls: ['login.page.scss'],
 })
 export class LoginPage implements OnInit, OnDestroy {
-  private loginEndpoint = environment.apiHost + '/login';
-  private checkEndpoint = environment.apiHost + '/check';
-
   loginForm: FormGroup;
-  private oldToken?: string;
   private isCurrentView: Boolean;
 
   public isButtonDisabled: boolean = false;
@@ -109,7 +106,7 @@ export class LoginPage implements OnInit, OnDestroy {
       message: 'There was an error logging in. Please try again.',
       buttons: ['OK'],
     });
-    const wrongCredentails = await this.alertController.create({
+    const wrongCredentials = await this.alertController.create({
       header: 'Error',
       message: 'Wrong email or password. Please try again.',
       buttons: ['OK'],
@@ -144,11 +141,28 @@ export class LoginPage implements OnInit, OnDestroy {
           console.log('true error!');
           console.log(result);
           errorLogin.message = `There was an error logging in. Please try again.`;
+          await Toast.show({
+            text: `Error Code: ${result.e} - ${result.status ?? 'Unknown'}`,
+          });
           await errorLogin.present();
         } else if (result.e == 19) {
           await accountLocked.present();
+        } else if (result.e == 1) {
+          await wrongCredentials.present();
+        } else if (result.e == 11) {
+          errorLogin.message = `There was an error communicating with the server. Please try again.`;
+          await Toast.show({
+            text: `Error Code: ${result.e} - ${result.status ?? 'Unknown'}`,
+          });
+          await errorLogin.present();
         } else if (result.e != 0) {
-          await wrongCredentails.present();
+          console.log('generic error!');
+          console.log(result);
+          errorLogin.message = result.status;
+          await Toast.show({
+            text: `Error Code: ${result.e} - ${result.status ?? 'Unknown'}}`,
+          });
+          await errorLogin.present();
         } else {
           this.loginForm.setValue({ email: '', password: '' });
           await this.buildingsService.setCurrentLocationAsync(result.location);
@@ -159,7 +173,10 @@ export class LoginPage implements OnInit, OnDestroy {
         loadingModal.dismiss();
         // general error
         this.isButtonDisabled = false;
-        errorLogin.message = `A unknown error occured while trying to log in. Please contact an administrator.`;
+        errorLogin.message = `A unknown error occurred while trying to log in. Please contact an administrator.`;
+        await Toast.show({
+          text: `${error}`,
+        });
         await errorLogin.present();
         console.log('general error!');
         console.log(error);

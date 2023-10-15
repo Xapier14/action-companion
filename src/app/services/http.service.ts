@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { CapacitorHttp } from '@capacitor/core';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -9,14 +10,16 @@ export class HttpService {
 
   async postJsonAsync(route: string, data: object, token?: string) {
     const endpoint = environment.apiHost + '/' + route;
-    return await fetch(endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: token,
-      },
-      body: JSON.stringify(data),
-    });
+    return (
+      await CapacitorHttp.post({
+        url: endpoint,
+        data: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token,
+        },
+      })
+    ).data;
   }
 
   async postEncodedObjectAsync(route: string, data: object, token?: string) {
@@ -29,36 +32,43 @@ export class HttpService {
 
   async postEncodedAsync(route: string, data: URLSearchParams, token?: string) {
     const endpoint = environment.apiHost + '/' + route;
-    return await fetch(endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        Authorization: token,
-      },
-      body: data,
-    });
+    return (
+      await CapacitorHttp.post({
+        url: endpoint,
+        data: data.toString(),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: token,
+        },
+      })
+    ).data;
   }
 
   async postFormDataAsync(route: string, data: FormData, token?: string) {
     const endpoint = environment.apiHost + '/' + route;
-    return await fetch(endpoint, {
-      method: 'POST',
-      headers: {
-        Authorization: token,
-      },
-      body: data,
-    });
+    return (
+      await CapacitorHttp.post({
+        url: endpoint,
+        data: data.toString(),
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: token,
+        },
+      })
+    ).data;
   }
 
   async getAsync(route: string, data?: URLSearchParams, token?: string) {
     const endpoint =
       environment.apiHost + '/' + route + (data ? `?${data}` : '');
-    return await fetch(endpoint, {
-      method: 'GET',
-      headers: {
-        Authorization: token,
-      },
-    });
+    return (
+      await CapacitorHttp.get({
+        url: endpoint,
+        headers: {
+          Authorization: token,
+        },
+      })
+    ).data;
   }
 
   async getAsyncParams(route: string, query?: object, token?: string) {
@@ -67,12 +77,14 @@ export class HttpService {
       '/' +
       route +
       (query ? `?${this.queryString(query)}` : '');
-    return await fetch(endpoint, {
-      method: 'GET',
-      headers: {
-        Authorization: token,
-      },
-    });
+    return (
+      await CapacitorHttp.get({
+        url: endpoint,
+        headers: {
+          Authorization: token,
+        },
+      })
+    ).data;
   }
 
   private queryString(query: object) {
