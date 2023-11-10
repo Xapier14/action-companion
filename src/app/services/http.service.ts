@@ -45,34 +45,42 @@ export class HttpService {
   async postFormDataAsync(
     route: string,
     data: FormData,
-    token?: string,
-    contentType: string | undefined = 'multipart/form-data'
+    token?: string
+    // contentType: string | undefined = 'multipart/form-data'
   ) {
     const endpoint = environment.apiHost + '/' + route;
-    console.log(data);
-    if (contentType == null || contentType == undefined) {
-      console.log('sent without content type');
-      return (
-        await CapacitorHttp.post({
-          url: endpoint,
-          data: data,
-          headers: {
-            Authorization: token,
-          },
-        })
-      ).data;
-    }
-    console.log('sent with content type');
-    return (
-      await CapacitorHttp.post({
-        url: endpoint,
-        data: data,
-        headers: {
-          'Content-Type': contentType,
-          Authorization: token,
-        },
-      })
-    ).data;
+    const result = await window.fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        Authorization: token,
+      },
+      body: data,
+    });
+    return await result.json();
+    // console.log(data);
+    // if (contentType == null || contentType == undefined) {
+    //   console.log('sent without content type');
+    //   return (
+    //     await CapacitorHttp.post({
+    //       url: endpoint,
+    //       data: data,
+    //       headers: {
+    //         Authorization: token,
+    //       },
+    //     })
+    //   ).data;
+    // }
+    // console.log('sent with content type');
+    // return (
+    //   await CapacitorHttp.post({
+    //     url: endpoint,
+    //     data: data,
+    //     headers: {
+    //       'Content-Type': contentType,
+    //       Authorization: token,
+    //     },
+    //   })
+    // ).data;
   }
 
   async getAsync(route: string, data?: URLSearchParams, token?: string) {
