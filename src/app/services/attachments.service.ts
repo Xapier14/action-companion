@@ -98,7 +98,12 @@ export class AttachmentsService {
     const token = await this.authService.getTokenAsync();
     if (!token) throw new Error('No token available.');
     const formData = new FormData();
+    console.log(blob);
+    console.log(fileName);
     formData.append('file', blob, fileName);
+    formData.forEach((value, key) => {
+      console.log(key + ':' + value);
+    });
     const response = await this.httpService.postFormDataAsync(
       requestUrl,
       formData,

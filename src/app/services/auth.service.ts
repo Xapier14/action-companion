@@ -15,12 +15,14 @@ export class AuthService {
     data.append('g-recaptcha-token', recaptcha);
     try {
       const response = await this.httpService.postEncodedAsync('login', data);
-      console.log(response);
-      if (response.e == 0) {
-        const token = response.token;
+      if (response.status != 200) {
+        return { e: 400, status: 'Network error' };
+      }
+      if (response.data.e == 0) {
+        const token = response.data.token;
         await Preferences.set({ key: 'token', value: token });
       }
-      return response;
+      return response.data;
     } catch (error) {
       return { e: 400, status: 'Network error' };
     }

@@ -401,7 +401,7 @@ export class CreateReportService {
       data,
       token.token
     );
-    if (!response.ok) {
+    if (response.status != 200) {
       if (response.status >= 500) {
         return Promise.reject({
           message: 'serverError',

@@ -61,9 +61,13 @@ export class AttachmentsPage implements OnInit {
     });
     uploadingModal.present();
     const blob = this.dataURItoBlob(data.dataUrl);
+    console.log('blob');
+    console.log(blob);
     const file = new File([blob], 'image.png', { type: 'image/png' });
+    console.log('file');
+    console.log(file);
     const response = await this.attachmentsService.UploadAttachmentAsync(
-      file,
+      blob,
       'file.png'
     );
     uploadingModal.dismiss();

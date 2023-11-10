@@ -32,26 +32,43 @@ export class HttpService {
 
   async postEncodedAsync(route: string, data: URLSearchParams, token?: string) {
     const endpoint = environment.apiHost + '/' + route;
-    return (
-      await CapacitorHttp.post({
-        url: endpoint,
-        data: data.toString(),
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          Authorization: token,
-        },
-      })
-    ).data;
+    return await CapacitorHttp.post({
+      url: endpoint,
+      data: data.toString(),
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: token,
+      },
+    });
   }
 
-  async postFormDataAsync(route: string, data: FormData, token?: string) {
+  async postFormDataAsync(
+    route: string,
+    data: FormData,
+    token?: string,
+    contentType: string | undefined = 'multipart/form-data'
+  ) {
     const endpoint = environment.apiHost + '/' + route;
+    console.log(data);
+    if (contentType == null || contentType == undefined) {
+      console.log('sent without content type');
+      return (
+        await CapacitorHttp.post({
+          url: endpoint,
+          data: data,
+          headers: {
+            Authorization: token,
+          },
+        })
+      ).data;
+    }
+    console.log('sent with content type');
     return (
       await CapacitorHttp.post({
         url: endpoint,
-        data: data.toString(),
+        data: data,
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': contentType,
           Authorization: token,
         },
       })
