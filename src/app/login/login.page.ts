@@ -2,14 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController, Platform } from '@ionic/angular';
-import { Preferences } from '@capacitor/preferences';
 import { Toast } from '@capacitor/toast';
-import { environment } from 'src/environments/environment';
 
 import { AuthService } from '../services/auth.service';
 import { BuildingsService } from '../services/buildings.service';
 import { PreferenceService } from '../services/preference.service';
 import { RecaptchaService } from '../services/recaptcha.service';
+import { HttpService } from '../services/http.service';
 
 @Component({
   selector: 'app-home',
@@ -27,6 +26,7 @@ export class LoginPage implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private alertController: AlertController,
     private loadingController: LoadingController,
+    private httpService: HttpService,
     private authService: AuthService,
     private buildingsService: BuildingsService,
     private platform: Platform,
@@ -52,6 +52,9 @@ export class LoginPage implements OnInit, OnDestroy {
         }
       }
     );
+    const serverLoader = await this.loadingController.create({
+      message: 'Checking server status...',
+    });
     const loader = await this.loadingController.create({
       message: 'Checking login status...',
     });
@@ -60,6 +63,20 @@ export class LoginPage implements OnInit, OnDestroy {
       message: 'Your previous session was successfully resumed.',
       buttons: ['OK'],
     });
+    const noConnection = await this.alertController.create({
+      header: 'Error',
+      message: 'Unable to connect to server. Please try again later.',
+      buttons: ['OK'],
+    });
+    this.isButtonDisabled = true;
+    serverLoader.present();
+    // check if server is online
+    const serverStatus = await this.httpService.testConnection();
+    serverLoader.dismiss();
+    this.isButtonDisabled = false;
+    if (!serverStatus) {
+      await noConnection.present();
+    }
     // check if resume session is enabled
     if (
       (await this.preferences.getAsync('rememberLogin')) === 'true' &&

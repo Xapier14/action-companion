@@ -8,6 +8,17 @@ import { environment } from 'src/environments/environment';
 export class HttpService {
   constructor() {}
 
+  async testConnection() {
+    try {
+      const res = await window.fetch(environment.apiHost.replace('/api/v1', '/'), {
+        redirect: 'follow',
+      });
+      return res.status === 200;
+    } catch (e) {
+      return false;
+    }
+  }
+
   async postJsonAsync(route: string, data: object, token?: string) {
     const endpoint = environment.apiHost + '/' + route;
     return (
@@ -56,7 +67,17 @@ export class HttpService {
       },
       body: data,
     });
-    return await result.json();
+    const textResult = await result.text();
+    try {
+      return JSON.parse(textResult);
+    } catch (error) {
+      console.log("error parsing json, result is:");
+      console.log(textResult);
+      return {
+        e: -1,
+        message: "Error parsing JSON",
+      };
+    }
     // console.log(data);
     // if (contentType == null || contentType == undefined) {
     //   console.log('sent without content type');
