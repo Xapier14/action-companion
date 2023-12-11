@@ -4,9 +4,12 @@
 
 export const environment = {
   production: false,
+  // Point to your API server
   apiHost: 'http://localhost:3000/api/v1',
+  // Google reCAPTCHA enterprise key
   recaptchaKey: '6LdzY5olAAAAAEeQt85YUNJIa-OcjTqm05Yw7eiJ',
-  // apiHost: "https://action-api.azurewebsites.net/api/v1",
+  // License token; IMPORTANT
+  licenseToken: 'Q29weXJpZ2h0IMKpIDIwMjMgYnkgTGFuY2UgQ3Jpc2FuZyAoWGFwaWVyMTQp',
 };
 
 /*

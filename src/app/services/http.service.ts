@@ -17,6 +17,7 @@ export class HttpService {
         headers: {
           'Content-Type': 'application/json',
           Authorization: token,
+          'License-Token': environment.licenseToken,
         },
       })
     ).data;
@@ -32,30 +33,28 @@ export class HttpService {
 
   async postEncodedAsync(route: string, data: URLSearchParams, token?: string) {
     const endpoint = environment.apiHost + '/' + route;
-    return (
-      await CapacitorHttp.post({
-        url: endpoint,
-        data: data.toString(),
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          Authorization: token,
-        },
-      })
-    ).data;
+    return await CapacitorHttp.post({
+      url: endpoint,
+      data: data.toString(),
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: token,
+        'License-Token': environment.licenseToken,
+      },
+    });
   }
 
   async postFormDataAsync(route: string, data: FormData, token?: string) {
     const endpoint = environment.apiHost + '/' + route;
-    return (
-      await CapacitorHttp.post({
-        url: endpoint,
-        data: data.toString(),
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: token,
-        },
-      })
-    ).data;
+    const result = await window.fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        Authorization: token,
+        'License-Token': environment.licenseToken,
+      },
+      body: data,
+    });
+    return await result.json();
   }
 
   async getAsync(route: string, data?: URLSearchParams, token?: string) {
@@ -66,6 +65,7 @@ export class HttpService {
         url: endpoint,
         headers: {
           Authorization: token,
+          'License-Token': environment.licenseToken,
         },
       })
     ).data;
@@ -82,6 +82,7 @@ export class HttpService {
         url: endpoint,
         headers: {
           Authorization: token,
+          'License-Token': environment.licenseToken,
         },
       })
     ).data;
