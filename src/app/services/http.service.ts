@@ -33,15 +33,17 @@ export class HttpService {
 
   async postEncodedAsync(route: string, data: URLSearchParams, token?: string) {
     const endpoint = environment.apiHost + '/' + route;
-    return await CapacitorHttp.post({
-      url: endpoint,
-      data: data.toString(),
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        Authorization: token,
-        'License-Token': environment.licenseToken,
-      },
-    });
+    return (
+      await CapacitorHttp.post({
+        url: endpoint,
+        data: data.toString(),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: token,
+          'License-Token': environment.licenseToken,
+        },
+      })
+    ).data;
   }
 
   async postFormDataAsync(route: string, data: FormData, token?: string) {
